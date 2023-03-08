@@ -1,0 +1,79 @@
+@import url("https://fonts.cdnfonts.com/css/star-wars");
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Star Wars", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  color: orange;
+}
+header h2 {
+  font-size: 1rem;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+main section {
+  background: rgba(62, 60, 60, 0.5);
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(62, 60, 60, 0.5);
+  flex-grow: 1;
+}
+main section .card {
+  display: flex;
+  padding: 0.5rem;
+  outline: 1px solid #FFE81F;
+}
+main section .card img {
+  border: 1px solid rgb(222, 218, 218);
+}
+main section div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(201, 199, 199);
+}
+main section button {
+  border: none;
+  padding: 0.5rem;
+  background: gray;
+}
+main section button:hover {
+  background: rgb(200, 199, 199);
+}
+
+footer {
+  padding: 1rem;
+  position: absolute;
+  bottom: 0%;
+  background: rgba(67, 67, 67, 0.4);
+  color: rgb(201, 199, 199);
+  filter: blur(1);
+  display: flex;
+  width: 100vw;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+  background: url("../assets/background-large.jpeg");
+  background-size: auto;
+}
+body .container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media only screen and (min-width: 1800px) {
+  body {
+    background-size: cover;
+  }
+}/*# sourceMappingURL=style.css.map */
