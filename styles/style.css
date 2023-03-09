@@ -17,11 +17,11 @@ main {
   gap: 1rem;
 }
 main section {
-  background: rgba(62, 60, 60, 0.5);
+  background: rgba(62, 60, 60, 0.2);
   padding: 8px;
   display: flex;
   justify-content: space-between;
-  background: rgba(62, 60, 60, 0.5);
+  background: rgba(62, 60, 60, 0.2);
   flex-grow: 1;
 }
 main section .card {
@@ -70,6 +70,11 @@ body .container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-width: 800px;
+  margin: auto;
+}
+body .hidden {
+  display: none;
 }
 
 @media only screen and (min-width: 1800px) {
