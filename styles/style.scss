@@ -3,6 +3,8 @@
 @import "partials/header";
 @import "partials/main";
 @import "partials/footer";
+@import "partials/helper";
+@import "partials/section-compare";
 // *{
 //     outline: 1px solid red;
 // }
@@ -19,9 +21,7 @@ body {
         max-width: 800px;
         margin: auto;
     }
-    .hidden{
-        display: none;
-    }
+
 }
 @media only screen and (min-width: 1800px) {
     body{

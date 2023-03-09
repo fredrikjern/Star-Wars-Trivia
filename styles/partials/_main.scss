@@ -7,14 +7,22 @@
       background: $app-background;
       padding: 8px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      gap:1rem;
       background: $app-background;
-      flex-grow: 1;
-      .card{
+
+      p {
+        margin: 0px;
+        padding: 2px;
+        ;
+      }
+
+      .card {
         display: flex;
         padding: 0.5rem;
         outline: 1px solid $starwars;
-        img{
+
+        img {
           border: 1px solid $accent-light;
         }
       }
@@ -22,16 +30,18 @@
       div {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        // justify-content: center;
+        // align-items: center;
         color: $text-1;
       }
-      button{
-        border:none;
+
+      button {
+        border: none;
         padding: 0.5rem;
         background: gray;
-        &:hover{
-        background: rgb(200, 199, 199);
+
+        &:hover {
+          background: rgb(200, 199, 199);
         }
       }
     }

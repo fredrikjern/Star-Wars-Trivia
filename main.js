@@ -49,16 +49,60 @@ function createPictureSection() {
     let compareButton = document.getElementById("compare-button");
     compareButton.addEventListener("click", (event) => {
       event.preventDefault();
-      createCompareSection()
-        character1.createCompareCard();
-        character2.createCompareCard();
+      createCompareSection(character1, character2);
+      // character1.createCompareCard();
+      // character2.createCompareCard();
     });
   }, 500);
 }
-function createCompareSection() {
+function createCompareSection(char1, char2) {
   let main = document.querySelector("main");
   let section = document.createElement("section");
   section.id = "compare-section";
+  section.innerHTML = `
+
+
+        <div class="col">
+            <div><h3>${char1.name === undefined ? "-" : char1.name}</h3></div>
+            <div><p>${char1.gender === undefined ? "-" : char1.gender}</p></div>
+            <div><p>${char1.height === undefined ? "-" : char1.height}</p></div>
+            <div><p>${char1.mass === undefined ? "-" : char1.mass}</p></div>
+            <div><p>${
+              char1.hairColor === undefined ? "-" : char1.hairColor
+            }</p></div>
+            <div><p>${
+              char1.skinColor === undefined ? "-" : char1.skinColor
+            }</p></div>
+            <div><p>${
+              char1.eyeColor === undefined ? "-" : char1.eyeColor
+            }</p></div>
+        </div>
+               <div class="col">
+        <div class="hidden"><h3>spacer</h2></div>
+            <div><p>Gender:</p></div>
+            <div><p>Height:</p></div>
+            <div><p>Mass:</p></div>
+            <div><p>Hair color:</p></div>
+            <div><p>Skin color:</p></div>
+            <div><p>Eye color:</p></div>
+        </div>
+        <div class="col">
+            <div><h3>${char2.name === undefined ? "-" : char2.name}</h3><div>
+            <div><p>${char2.gender === undefined ? "-" : char2.gender}</p></div>
+            <div><p>${char2.height === undefined ? "-" : char2.height}</p></div>
+            <div><p>${char2.mass === undefined ? "-" : char2.mass}</p></div>
+            <div><p>${
+              char2.hairColor === undefined ? "-" : char2.hairColor
+            }</p></div>
+            <div><p>${
+              char2.skinColor === undefined ? "-" : char2.skinColor
+            }</p></div>
+            <div><p>${
+              char2.eyeColor === undefined ? "-" : char2.eyeColor
+            }</p></div>
+        </div>
+    `;
+
   main.append(section);
 }
 
@@ -96,32 +140,17 @@ class Character {
     let div = document.createElement("div");
     div.innerHTML = `
         <div class="card" >
-            <img src="${this.pictureURL}" alt="">
+            <div><img src="${this.pictureURL}" alt=""></div>
             <div id="">
                 <h3>${this.name}</h3>
+            </div>
+            <div>
+            <p>visa a</p>
+            <p>visa a</p>
+            <p>visa a</p>
             </div>
         </div>
         `;
     first ? pictureCards.prepend(div) : pictureCards.append(div);
-  }
-  createCompareCard() {
-    let compareSection = document.getElementById("compare-section");
-    let div = document.createElement("div");
-    div.innerHTML = `
-        <div class="card" >
-       <div><h3>Gender: ${this.gender === undefined ? " " : this.gender}</h3></div>
-       <div><h3>Height: ${this.height === undefined ? " " : this.height}</h3></div>
-       <div><h3>Mass: ${this.mass === undefined ? " " : this.mass}</h3></div>
-       <div><h3>Hair color:${
-         this.hairColor === undefined ? " " : this.hairColor
-       }</h3></div>
-       <div><h3>Skin color: ${
-         this.skinColor === undefined ? " " : this.skinColor
-       }</h3></div>
-       <div><h3>Eye color:${this.eyeColor === undefined ? " " : this.eyeColor}</h3></div>
-        </div>
-        `;
-    compareSection.append(div)
-
   }
 }
