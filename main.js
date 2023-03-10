@@ -6,24 +6,23 @@ let downloadBtn = document.getElementById("download-button");
 downloadBtn.addEventListener("click", (event) => {
   event.preventDefault();
   if (!deleteClick) {
-    download();
     deleteClick = true;
+    downloadStage();
   } else {
     console.log("Stop clicking you shall");
   }
 });
-function download() {
+async function downloadStage() {
   let c1 = document.getElementById("character-1").value;
   let c2 = document.getElementById("character-2").value;
   createPictureSection(c1, c2);
-  createCharacters(c1, c2);
+    character1 = await createCharacter(c1);
+    character2 = await createCharacter(c2);
+    character1.createPictureCard();
+    character2.createPictureCard();
+
 }
-async function createCharacters(c1, c2) {
-  character1 = await createCharacter(c1);
-  character2 = await createCharacter(c2);
-  character1.createPictureCard();
-  character2.createPictureCard();
-}
+
 async function createCharacter(string) {
   let { name, gender, height, mass, hairColor, skinColor, eyeColor } =
     await getData(BASE_URL + "people/?search=" + `${string}`);
@@ -41,8 +40,7 @@ async function createCharacter(string) {
 function createPictureSection() {
   let main = document.querySelector("main");
   let section = document.createElement("section");
-    section.id = "picture-section";
-    //!  none
+  section.id = "picture-section";
   section.innerHTML = `
         <div id="picture-cards">
             
@@ -170,8 +168,4 @@ let getData = async (url) => {
   }
 };
 // init
-
-let c1 = document.getElementById("character-1").value;
-let c2 = document.getElementById("character-2").value;
-createPictureSection(c1, c2);
-createCharacters(c1, c2);
+downloadStage()
