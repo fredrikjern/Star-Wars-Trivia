@@ -1,6 +1,10 @@
 body {
+    .short{
+        height: 20px;
+        background: red;
+    }
     .none {
-        display: none;
+        display: none!important;
     }
 
     .hidden {

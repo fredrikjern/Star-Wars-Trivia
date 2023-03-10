@@ -28,19 +28,6 @@ main section p {
   margin: 0px;
   padding: 2px;
 }
-main section .card {
-  display: flex;
-  padding: 0.5rem;
-  outline: 1px solid #FFE81F;
-}
-main section .card img {
-  border: 1px solid rgb(222, 218, 218);
-}
-main section div {
-  display: flex;
-  flex-direction: column;
-  color: rgb(201, 199, 199);
-}
 main section button {
   border: none;
   padding: 0.5rem;
@@ -61,8 +48,12 @@ footer {
   width: 100vw;
 }
 
+body .short {
+  height: 20px;
+  background: red;
+}
 body .none {
-  display: none;
+  display: none !important;
 }
 body .hidden {
   visibility: hidden;
@@ -80,6 +71,7 @@ main #compare-section {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  color: rgb(222, 218, 218);
 }
 main #compare-section > div:nth-child(2) {
   justify-content: center;
@@ -95,6 +87,56 @@ main #compare-section > div:nth-child(3) {
   text-align: left;
 }
 
+#picture-section {
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+#picture-section div {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+}
+#picture-section .card {
+  display: flex;
+  padding: 0.5rem;
+  outline: 1px solid #FFE81F;
+  gap: 1rem;
+}
+#picture-section .card .msg {
+  flex-direction: column;
+  gap: 1rem;
+}
+#picture-section .card .msg div {
+  display: flex;
+  gap: 0.4rem;
+}
+#picture-section .card .msg div:last-child {
+  outline: 1px solid red;
+}
+#picture-section .card img {
+  border: 1px solid rgb(222, 218, 218);
+}
+#picture-section .picture {
+  display: flex;
+  flex-direction: column;
+  color: rgb(201, 199, 199);
+}
+
+@media only screen and (max-width: 1000px) {
+  #picture-section .card {
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 600px) {
+  #picture-section div {
+    flex-direction: column;
+  }
+  #picture-section .msg div:first-child {
+    flex-direction: row;
+    outline: 1px solid rgb(47, 0, 255);
+  }
+}
 body {
   padding: 0px;
   margin: 0px;
@@ -106,7 +148,7 @@ body .container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 800px;
+  max-width: 1200px;
   margin: auto;
 }
 

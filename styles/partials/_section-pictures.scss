@@ -1,0 +1,62 @@
+#picture-section {
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: space-evenly;
+    div {
+        display: flex;
+    justify-content: space-evenly;
+        flex-direction: row;
+    }
+
+    .card {
+        display: flex;
+        padding: 0.5rem;
+        outline: 1px solid $starwars;
+        gap: 1rem;
+
+        .msg {
+            flex-direction: column;
+            gap: 1rem;
+            div{
+                display: flex;
+                gap:0.4rem;
+                &:last-child{
+                    outline: 1px solid red;
+                }
+            }
+            //padding: 1rem;
+        }
+
+        img {
+            border: 1px solid $accent-light;
+        }
+    }
+
+    .picture {
+        display: flex;
+        flex-direction: column;
+        // justify-content: center;
+        // align-items: center;
+        color: $text-1;
+    }
+}
+@media only screen and (max-width: 1000px) {
+  #picture-section{
+    .card{
+        flex-direction: column;
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  #picture-section{
+    div{
+        flex-direction: column;
+    }
+    .msg{
+        div:first-child{
+            flex-direction: row;
+            outline: 1px solid rgb(47, 0, 255);
+        }
+    }
+  }
+}

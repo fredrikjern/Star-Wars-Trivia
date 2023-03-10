@@ -17,23 +17,7 @@
         ;
       }
 
-      .card {
-        display: flex;
-        padding: 0.5rem;
-        outline: 1px solid $starwars;
-
-        img {
-          border: 1px solid $accent-light;
-        }
-      }
-
-      div {
-        display: flex;
-        flex-direction: column;
-        // justify-content: center;
-        // align-items: center;
-        color: $text-1;
-      }
+      
 
       button {
         border: none;

@@ -5,6 +5,7 @@
 @import "partials/footer";
 @import "partials/helper";
 @import "partials/section-compare";
+@import "partials/section-pictures";
 // *{
 //     outline: 1px solid red;
 // }
@@ -18,7 +19,7 @@ body {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        max-width: 800px;
+        max-width: 1200px;
         margin: auto;
     }
 

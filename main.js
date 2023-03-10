@@ -6,20 +6,23 @@ let downloadBtn = document.getElementById("download-button");
 downloadBtn.addEventListener("click", (event) => {
   event.preventDefault();
   if (!deleteClick) {
-    let c1 = document.getElementById("character-1").value;
-    let c2 = document.getElementById("character-2").value;
-    createPictureSection(c1, c2);
-    createCharacters(c1, c2);
+    download();
     deleteClick = true;
   } else {
     console.log("Stop clicking you shall");
   }
 });
+function download() {
+  let c1 = document.getElementById("character-1").value;
+  let c2 = document.getElementById("character-2").value;
+  createPictureSection(c1, c2);
+  createCharacters(c1, c2);
+}
 async function createCharacters(c1, c2) {
   character1 = await createCharacter(c1);
   character2 = await createCharacter(c2);
-  character1.createPictureCard(true);
-  character2.createPictureCard(false);
+  character1.createPictureCard();
+  character2.createPictureCard();
 }
 async function createCharacter(string) {
   let { name, gender, height, mass, hairColor, skinColor, eyeColor } =
@@ -38,22 +41,23 @@ async function createCharacter(string) {
 function createPictureSection() {
   let main = document.querySelector("main");
   let section = document.createElement("section");
-  section.id = "picture-cards";
+    section.id = "picture-section";
+    //!  none
   section.innerHTML = `
-        <div></div>
+        <div id="picture-cards">
+            
+        </div>
         <div><button id="compare-button">Compare</button></div>
-        <div></div>
+        
   `;
   main.append(section);
-  setTimeout(() => {
-    let compareButton = document.getElementById("compare-button");
-    compareButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      createCompareSection(character1, character2);
-      // character1.createCompareCard();
-      // character2.createCompareCard();
-    });
-  }, 500);
+  let compareButton = document.getElementById("compare-button");
+  compareButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    createCompareSection(character1, character2);
+    // character1.createCompareCard();
+    // character2.createCompareCard();
+  });
 }
 function createCompareSection(char1, char2) {
   let main = document.querySelector("main");
@@ -106,18 +110,6 @@ function createCompareSection(char1, char2) {
   main.append(section);
 }
 
-let getData = async (url) => {
-  try {
-    let response = await fetch(url);
-    let json = await response.json();
-    let results = json.results;
-    return results[0];
-  } catch (error) {
-    console.log(error);
-    console.log("Fel i getData");
-  }
-};
-
 class Character {
   constructor(name, gender, height, mass, hairColor, skinColor, eyeColor) {
     this.name = name;
@@ -135,22 +127,51 @@ class Character {
   generatePictureUrl() {
     return `/assets/${this.name.toLowerCase().replace(/ .*/, "")}.svg`;
   }
-  createPictureCard(first) {
+  createPictureCard() {
     let pictureCards = document.getElementById("picture-cards");
+    pictureCards.classList.add("short");
     let div = document.createElement("div");
+    div.classList.add("card");
     div.innerHTML = `
-        <div class="card" >
-            <div><img src="${this.pictureURL}" alt=""></div>
-            <div id="">
-                <h3>${this.name}</h3>
+            <div class="picture">
+                <div>
+                    <img src="${this.pictureURL}" alt="">
+                </div>
+                <div id="">
+                    <h3>${this.name}</h3>
+                </div>
             </div>
-            <div>
-            <p>visa a</p>
-            <p>visa a</p>
-            <p>visa a</p>
+
+            <div class="msg">
+                <div>
+                    <button>Date 1st movie:</button>
+                    <button>Both actors</button>
+                    <button>Planets</button>
+                    <button>$Car</button>
+                </div>
+                <div>
+                    <p>msg container</p>
+                </div>
             </div>
-        </div>
         `;
-    first ? pictureCards.prepend(div) : pictureCards.append(div);
+    pictureCards.append(div);
   }
 }
+let getData = async (url) => {
+  try {
+    let response = await fetch(url);
+    let json = await response.json();
+    let results = json.results;
+    console.log(results);
+    return results[0];
+  } catch (error) {
+    console.log(error);
+    console.log("Fel i getData");
+  }
+};
+// init
+
+let c1 = document.getElementById("character-1").value;
+let c2 = document.getElementById("character-2").value;
+createPictureSection(c1, c2);
+createCharacters(c1, c2);
