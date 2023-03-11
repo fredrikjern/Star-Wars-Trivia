@@ -15,68 +15,85 @@ downloadBtn.addEventListener("click", (event) => {
 async function downloadStage() {
   let c1 = document.getElementById("character-1").value;
   let c2 = document.getElementById("character-2").value;
-  createPictureSection(c1, c2);
-    character1 = await createCharacter(c1);
-    character2 = await createCharacter(c2);
-    character1.createPictureCard();
-    character2.createPictureCard();
-
+  character1 = await createCharacter(c1);
+  character2 = await createCharacter(c2);
+  character1.addPictureCard();
+    character2.addPictureCard();
+    character1.compareRender(character2)
+    character1.compareTo(character2);
+    console.log("slut");
 }
 
-async function createCharacter(string) {
-  let { name, gender, height, mass, hairColor, skinColor, eyeColor } =
-    await getData(BASE_URL + "people/?search=" + `${string}`);
-  let newCharacter = new Character(
-    name,
-    gender,
-    height,
-    mass,
-    hairColor,
-    skinColor,
-    eyeColor
-  );
-  return newCharacter;
-}
-function createPictureSection() {
-  let main = document.querySelector("main");
-  let section = document.createElement("section");
-  section.id = "picture-section";
-  section.innerHTML = `
-        <div id="picture-cards">
-            
-        </div>
-        <div><button id="compare-button">Compare</button></div>
-        
-  `;
-  main.append(section);
+function compareEventlistener() {
   let compareButton = document.getElementById("compare-button");
   compareButton.addEventListener("click", (event) => {
     event.preventDefault();
-    createCompareSection(character1, character2);
-    // character1.createCompareCard();
+   character1.compareRender();
     // character2.createCompareCard();
   });
 }
-function createCompareSection(char1, char2) {
-  let main = document.querySelector("main");
-  let section = document.createElement("section");
-  section.id = "compare-section";
-  section.innerHTML = `
 
+// !----------------
 
+class Character {
+  constructor(name, gender, height, mass, hairColor, skinColor, eyeColor) {
+    this.name = name;
+    this.gender = gender;
+    this.height = height;
+    this.mass = mass;
+    this.hairColor = hairColor;
+    this.skinColor = skinColor;
+    this.eyeColor = eyeColor;
+    this.pictureURL = this.generatePictureUrl();
+  }
+  //*Methods
+  generatePictureUrl() {
+    return `/assets/${this.name.toLowerCase().replace(/ .*/, "")}.svg`;
+  }
+  addPictureCard() {
+    let pictureCards = document.querySelector(".picture-cards");
+    let div = document.createElement("div");
+    div.classList.add("card");
+    div.innerHTML = `
+            <div class="picture">
+                <div>
+                    <img src="${this.pictureURL}" alt="">
+                </div>
+                <div id="">
+                    <h3>${this.name}</h3>
+                </div>
+            </div>
+
+            <div class="msg">
+                <div>
+                    <button>Date 1st movie:</button>
+                    <button>Both actors</button>
+                    <button>Planets</button>
+                    <button>$Car</button>
+                </div>
+                <div>
+                    <p>msg container</p>
+                </div>
+            </div>
+        `;
+    pictureCards.append(div);
+  }
+  compareRender(char2) {
+    let compareSection = document.querySelector(".compare-section");
+    compareSection.innerHTML = `
         <div class="col">
-            <div><h3>${char1.name === undefined ? "-" : char1.name}</h3></div>
-            <div><p>${char1.gender === undefined ? "-" : char1.gender}</p></div>
-            <div><p>${char1.height === undefined ? "-" : char1.height}</p></div>
-            <div><p>${char1.mass === undefined ? "-" : char1.mass}</p></div>
+            <div><h3>${this.name === undefined ? "-" : this.name}</h3></div>
+            <div><p>${this.gender === undefined ? "-" : this.gender}</p></div>
+            <div><p>${this.height === undefined ? "-" : this.height}</p></div>
+            <div><p>${this.mass === undefined ? "-" : this.mass}</p></div>
             <div><p>${
-              char1.hairColor === undefined ? "-" : char1.hairColor
+              this.hairColor === undefined ? "-" : this.hairColor
             }</p></div>
             <div><p>${
-              char1.skinColor === undefined ? "-" : char1.skinColor
+              this.skinColor === undefined ? "-" : this.skinColor
             }</p></div>
             <div><p>${
-              char1.eyeColor === undefined ? "-" : char1.eyeColor
+              this.eyeColor === undefined ? "-" : this.eyeColor
             }</p></div>
         </div>
                <div class="col">
@@ -104,57 +121,28 @@ function createCompareSection(char1, char2) {
             }</p></div>
         </div>
     `;
-
-  main.append(section);
-}
-
-class Character {
-  constructor(name, gender, height, mass, hairColor, skinColor, eyeColor) {
-    this.name = name;
-    this.gender = gender;
-    this.height = height;
-    this.mass = mass;
-    this.hairColor = hairColor;
-    this.skinColor = skinColor;
-    this.eyeColor = eyeColor;
-    this.pictureURL = this.generatePictureUrl();
   }
-  getURL() {
-    console.log(this.pictureURL);
-  }
-  generatePictureUrl() {
-    return `/assets/${this.name.toLowerCase().replace(/ .*/, "")}.svg`;
-  }
-  createPictureCard() {
-    let pictureCards = document.getElementById("picture-cards");
-    pictureCards.classList.add("short");
-    let div = document.createElement("div");
-    div.classList.add("card");
-    div.innerHTML = `
-            <div class="picture">
-                <div>
-                    <img src="${this.pictureURL}" alt="">
-                </div>
-                <div id="">
-                    <h3>${this.name}</h3>
-                </div>
-            </div>
-
-            <div class="msg">
-                <div>
-                    <button>Date 1st movie:</button>
-                    <button>Both actors</button>
-                    <button>Planets</button>
-                    <button>$Car</button>
-                </div>
-                <div>
-                    <p>msg container</p>
-                </div>
-            </div>
-        `;
-    pictureCards.append(div);
+  compareTo(char) {
+    if (this.height === char) {
+    }
   }
 }
+// ?Färdiga helpers
+
+let createCharacter = async (string) => {
+  let { name, gender, height, mass, hairColor, skinColor, eyeColor } =
+    await getData(BASE_URL + "people/?search=" + `${string}`);
+  let newCharacter = new Character(
+    name,
+    gender,
+    height,
+    mass,
+    hairColor,
+    skinColor,
+    eyeColor
+  );
+  return newCharacter;
+};
 let getData = async (url) => {
   try {
     let response = await fetch(url);
@@ -168,4 +156,4 @@ let getData = async (url) => {
   }
 };
 // init
-downloadStage()
+downloadStage();

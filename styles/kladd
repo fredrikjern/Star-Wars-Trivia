@@ -1,0 +1,72 @@
+// Character class
+class Character {
+	constructor(name, gender, height, mass, hairColor, skinColor, eyeColor, movies) {
+		this.name = name;
+		this.gender = gender;
+		this.height = height;
+		this.mass = mass;
+		this.hairColor = hairColor;
+		this.skinColor = skinColor;
+		this.eyeColor = eyeColor;
+		this.movies = movies;
+		this.pictureUrl = "";
+	}
+
+	async getPictureUrl() {
+		try {
+			const response = await fetch(`https://api.allorigins.win/raw?url=https://api.qwant.com/api/search/images?count=1&t=images&q=${encodeURIComponent(this.name + ' star wars')}`);
+			const data = await response.json();
+			const imageUrl = data.data.result.items[0].media;
+			this.pictureUrl = imageUrl;
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	async getFirstAppearance() {
+		try
+
+
+		function createCompareSection(char1, char2) {
+  section.innerHTML = `
+        <div class="col">
+            <div><h3>${char1.name === undefined ? "-" : char1.name}</h3></div>
+            <div><p>${char1.gender === undefined ? "-" : char1.gender}</p></div>
+            <div><p>${char1.height === undefined ? "-" : char1.height}</p></div>
+            <div><p>${char1.mass === undefined ? "-" : char1.mass}</p></div>
+            <div><p>${
+              char1.hairColor === undefined ? "-" : char1.hairColor
+            }</p></div>
+            <div><p>${
+              char1.skinColor === undefined ? "-" : char1.skinColor
+            }</p></div>
+            <div><p>${
+              char1.eyeColor === undefined ? "-" : char1.eyeColor
+            }</p></div>
+        </div>
+               <div class="col">
+        <div class="hidden"><h3>spacer</h2></div>
+            <div><p>Gender:</p></div>
+            <div><p>Height:</p></div>
+            <div><p>Mass:</p></div>
+            <div><p>Hair color:</p></div>
+            <div><p>Skin color:</p></div>
+            <div><p>Eye color:</p></div>
+        </div>
+        <div class="col">
+            <div><h3>${char2.name === undefined ? "-" : char2.name}</h3><div>
+            <div><p>${char2.gender === undefined ? "-" : char2.gender}</p></div>
+            <div><p>${char2.height === undefined ? "-" : char2.height}</p></div>
+            <div><p>${char2.mass === undefined ? "-" : char2.mass}</p></div>
+            <div><p>${
+              char2.hairColor === undefined ? "-" : char2.hairColor
+            }</p></div>
+            <div><p>${
+              char2.skinColor === undefined ? "-" : char2.skinColor
+            }</p></div>
+            <div><p>${
+              char2.eyeColor === undefined ? "-" : char2.eyeColor
+            }</p></div>
+        </div>
+    `;
+}
