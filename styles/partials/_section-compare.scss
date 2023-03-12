@@ -1,31 +1,43 @@
   main {
       .compare-section {
+          display: flex;
           justify-content: center;
           align-items: center;
           gap: 1rem;
           color: $accent-light;
+          flex-direction: row-reverse;
 
-          >div:nth-child(2) {
-              justify-content: center;
-              align-items: center;
-          }
-          >div:nth-child(1) {
-              justify-content: flex-end;
-              align-items: flex-end;
+          .compare-attributes {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-evenly;
 
-          }
-
-          >div:nth-child(3) {
-              justify-content: flex-start ;
-              align-items: flex-start ;
-              text-align: left;
-
+              div {
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: space-between;
+                  margin: 0 0.5rem;
+              }
           }
 
+          .equal {
+              font-weight: bold;
+          }
 
-
+          .winner {
+              color: green;
+          }
       }
 
 
 
   }
+
+  @media only screen and (max-width: 800px) {
+      main{
+          .compare-section {
+              flex-direction: column;
+          }
+          
+    }
+    }

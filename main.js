@@ -13,45 +13,144 @@ downloadBtn.addEventListener("click", (event) => {
   }
 });
 async function downloadStage() {
-  let c1 = document.getElementById("character-1").value;
-  let c2 = document.getElementById("character-2").value;
-  character1 = await createCharacter(c1);
-  character2 = await createCharacter(c2);
+  character1 = await createCharacter(
+    document.getElementById("character-1").value
+  );
+  character2 = await createCharacter(
+    document.getElementById("character-2").value
+  );
   character1.addPictureCard();
-    character2.addPictureCard();
-    character1.compareRender(character2)
-    character1.compareTo(character2);
-    console.log("slut");
+  character1.addMsgContainer();
+  character2.addPictureCard();
+
+  character1.compareRender(character2);
 }
 
-function compareEventlistener() {
-  let compareButton = document.getElementById("compare-button");
-  compareButton.addEventListener("click", (event) => {
-    event.preventDefault();
-   character1.compareRender();
-    // character2.createCompareCard();
-  });
-}
+let compareButton = document.getElementById("compare-button");
+compareButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  let compareSection = document.querySelector(".compare-section");
+  compareSection.classList.toggle("none");
+  console.log("jkux");
+});
 
 // !----------------
 
 class Character {
-  constructor(name, gender, height, mass, hairColor, skinColor, eyeColor) {
+  constructor(
+    name,
+    gender,
+    height,
+    mass,
+    hair_color,
+    skin_color,
+    eye_color,
+    films,
+    homeworld,
+    vehicles,
+    starships
+  ) {
     this.name = name;
+    this.films = this.getFilms(films);
+    this.nFilms = films.length;
     this.gender = gender;
-    this.height = height;
-    this.mass = mass;
-    this.hairColor = hairColor;
-    this.skinColor = skinColor;
-    this.eyeColor = eyeColor;
+    this.height = Number(height);
+    this.mass = Number(mass);
+    this.hair_color = hair_color;
+    this.skin_color = skin_color;
+    this.eye_color = eye_color;
+    this.homeworld = this.getPlanet(homeworld);
+    //this.starships = this.get(starships);
+    //this.vehicles = this.get(vehicles);
     this.pictureURL = this.generatePictureUrl();
   }
   //*Methods
-  generatePictureUrl() {
-    return `/assets/${this.name.toLowerCase().replace(/ .*/, "")}.svg`;
+  compareFilms = async (char2) => {
+    let f1 = await this.films;
+    let f2 = await char2.films;
+    const similarValues = f1
+      .map((value) => {
+        const [movie, date] = value;
+        const match = f2.find(
+          ([f2Movie, f2Date]) => f2Movie === movie && f2Date === date
+        );
+        if (match) return value;
+      })
+      .filter((value) => value !== undefined);
+    if (similarValues) {
+      let text = [];
+      similarValues.forEach((val) => {
+        console.log(val);
+        let t = `${val[0]} ${val[1].match(/^.{4}/)}`;
+        text.push(t);
+      });
+
+      text.join("");
+      this.printToCardMsg(`Both characters appear in: ${text}`);
+    } else {
+      this.printToCardMsg("The characters never appear in the same movie");
+    }
+  };
+  compareHomePlanet = async (char2) => {
+    if ((await this.homeworld) === (await char2.homeworld)) {
+      let text = `Both characters are from ${await char2.homeworld}`;
+      this.printToCardMsg(text);
+    } else {
+      let text = `${this.name} is from ${await this.homeworld}`;
+      this.printToCardMsg(text);
+    }
+  };
+  printToCardMsg(string) {
+    let msgContainer = document.querySelector(".message-container");
+    msgContainer.innerHTML = `${string}`;
   }
+  showFirstMovie = async () => {
+    let arr = await this.films;
+    let text = `${this.name} first appeared in ${
+      arr[0][0]
+    } in ${arr[0][1].match(/^.{4}/)}`;
+
+    this.printToCardMsg(text);
+  };
+  getFilms = async (arr) => {
+    let films = await this.getMultiple(arr);
+    let titleDate = films.map((film) => {
+      return [film.value.title, film.value.release_date];
+    });
+    return titleDate;
+  };
+  getMultiple = async (arr) => {
+    try {
+      let promises = arr.map((id) => this.get(id));
+      //Returnerar rejectade och resolvade promises
+      let data = await Promise.allSettled(promises);
+      return data;
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+  getPlanet = async (homeworld) => {
+    try {
+      let { name } = await this.get(homeworld);
+      return name;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  get = async (url) => {
+    try {
+      let response = await fetch(url);
+      let json = await response.json();
+      return json;
+    } catch (error) {
+      console.log(error);
+      console.log("Fel i get");
+    }
+  };
   addPictureCard() {
     let pictureCards = document.querySelector(".picture-cards");
+    let short = this.name.toLowerCase().replace(/ .*/, "");
+
     let div = document.createElement("div");
     div.classList.add("card");
     div.innerHTML = `
@@ -62,84 +161,106 @@ class Character {
                 <div id="">
                     <h3>${this.name}</h3>
                 </div>
+                <div>
+                  <button class="planet-button ${short}">Homeplanet</button>
+                  <button class="first-button ${short}">First Movie</button>
+                  <button class="both-button ${short}">Both</button>
+                  <button class="dollar-button ${short}">$vehicle</button>
+                </div>
             </div>
 
-            <div class="msg">
-                <div>
-                    <button>Date 1st movie:</button>
-                    <button>Both actors</button>
-                    <button>Planets</button>
-                    <button>$Car</button>
-                </div>
-                <div>
-                    <p>msg container</p>
-                </div>
-            </div>
         `;
     pictureCards.append(div);
+
+    document
+      .querySelector(`.planet-button.${short}`)
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        console.log("hime");
+        this.compareHomePlanet(
+          character2.name === this.name ? character1 : character2
+        );
+      });
+    document
+      .querySelector(`.first-button.${short}`)
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        this.showFirstMovie();
+      });
+    document
+      .querySelector(`.both-button.${short}`)
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        this.compareFilms(
+          character2.name === this.name ? character1 : character2
+        );
+      });
+  }
+  addMsgContainer() {
+    let pictureCards = document.querySelector(".card-section");
+    let div = document.createElement("div");
+    div.innerHTML = " Placeholder ";
+    div.classList.add("message-container", "card");
+    pictureCards.append(div);
+  }
+  compare(string, attr1, attr2) {
+    let compareAttributes = document.querySelector(".compare-attributes");
+    let attribute = document.createElement("div");
+    let one = document.createElement("div");
+    let title = document.createElement("div");
+    let two = document.createElement("div");
+    one.innerHTML = `<p>${attr1 === undefined ? "-" : attr1}</p>`;
+    title.innerHTML = `<p>${string}</p>`;
+    two.innerHTML = ` <p>${attr2 === undefined ? "-" : attr2}</p>`;
+
+    if (attr1 === attr2) title.classList.add("equal");
+    if (attr1 > attr2) one.classList.add("winner");
+    if (attr1 < attr2) two.classList.add("winner");
+    attribute.append(one, title, two);
+    compareAttributes.append(attribute);
   }
   compareRender(char2) {
-    let compareSection = document.querySelector(".compare-section");
-    compareSection.innerHTML = `
-        <div class="col">
-            <div><h3>${this.name === undefined ? "-" : this.name}</h3></div>
-            <div><p>${this.gender === undefined ? "-" : this.gender}</p></div>
-            <div><p>${this.height === undefined ? "-" : this.height}</p></div>
-            <div><p>${this.mass === undefined ? "-" : this.mass}</p></div>
-            <div><p>${
-              this.hairColor === undefined ? "-" : this.hairColor
-            }</p></div>
-            <div><p>${
-              this.skinColor === undefined ? "-" : this.skinColor
-            }</p></div>
-            <div><p>${
-              this.eyeColor === undefined ? "-" : this.eyeColor
-            }</p></div>
-        </div>
-               <div class="col">
-        <div class="hidden"><h3>spacer</h2></div>
-            <div><p>Gender:</p></div>
-            <div><p>Height:</p></div>
-            <div><p>Mass:</p></div>
-            <div><p>Hair color:</p></div>
-            <div><p>Skin color:</p></div>
-            <div><p>Eye color:</p></div>
-        </div>
-        <div class="col">
-            <div><h3>${char2.name === undefined ? "-" : char2.name}</h3><div>
-            <div><p>${char2.gender === undefined ? "-" : char2.gender}</p></div>
-            <div><p>${char2.height === undefined ? "-" : char2.height}</p></div>
-            <div><p>${char2.mass === undefined ? "-" : char2.mass}</p></div>
-            <div><p>${
-              char2.hairColor === undefined ? "-" : char2.hairColor
-            }</p></div>
-            <div><p>${
-              char2.skinColor === undefined ? "-" : char2.skinColor
-            }</p></div>
-            <div><p>${
-              char2.eyeColor === undefined ? "-" : char2.eyeColor
-            }</p></div>
-        </div>
-    `;
+    this.compare("Height", this.height, char2.height);
+    this.compare("Weight", this.mass, char2.mass);
+    this.compare("No Films", this.nFilms, char2.nFilms);
+    this.compare("Skin_color", this.skin_color, char2.skin_color);
+    this.compare("Haircolor", this.hair_color, char2.hair_color);
+    this.compare("Eye_color", this.eye_color, char2.eye_color);
+    this.compare("Gender", this.gender, char2.gender);
   }
-  compareTo(char) {
-    if (this.height === char) {
-    }
+  generatePictureUrl() {
+    return `/assets/${this.name.toLowerCase().replace(/ .*/, "")}.svg`;
   }
 }
+
 // ?Färdiga helpers
 
 let createCharacter = async (string) => {
-  let { name, gender, height, mass, hairColor, skinColor, eyeColor } =
-    await getData(BASE_URL + "people/?search=" + `${string}`);
+  let {
+    name,
+    gender,
+    height,
+    mass,
+    hair_color,
+    skin_color,
+    eye_color,
+    films,
+    homeworld,
+    starships,
+    vehicles,
+  } = await getData(BASE_URL + "people/?search=" + `${string}`);
   let newCharacter = new Character(
     name,
     gender,
     height,
     mass,
-    hairColor,
-    skinColor,
-    eyeColor
+    hair_color,
+    skin_color,
+    eye_color,
+    films,
+    homeworld,
+    starships,
+    vehicles
   );
   return newCharacter;
 };
@@ -148,7 +269,7 @@ let getData = async (url) => {
     let response = await fetch(url);
     let json = await response.json();
     let results = json.results;
-    console.log(results);
+    // console.log(results);
     return results[0];
   } catch (error) {
     console.log(error);

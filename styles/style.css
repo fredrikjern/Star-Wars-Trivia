@@ -68,25 +68,36 @@ body .col {
 }
 
 main .compare-section {
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
   color: rgb(222, 218, 218);
+  flex-direction: row-reverse;
 }
-main .compare-section > div:nth-child(2) {
-  justify-content: center;
-  align-items: center;
+main .compare-section .compare-attributes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
-main .compare-section > div:nth-child(1) {
-  justify-content: flex-end;
-  align-items: flex-end;
+main .compare-section .compare-attributes div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 0.5rem;
 }
-main .compare-section > div:nth-child(3) {
-  justify-content: flex-start;
-  align-items: flex-start;
-  text-align: left;
+main .compare-section .equal {
+  font-weight: bold;
+}
+main .compare-section .winner {
+  color: green;
 }
 
+@media only screen and (max-width: 800px) {
+  main .compare-section {
+    flex-direction: column;
+  }
+}
 .card-section {
   outline: 1px solid red;
   overflow: hidden;
