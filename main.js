@@ -20,7 +20,6 @@ async function downloadStage() {
     document.getElementById("character-2").value
   );
   character1.addPictureCard();
-  character1.addMsgContainer();
   character2.addPictureCard();
 
   character1.compareRender(character2);
@@ -60,7 +59,7 @@ class Character {
     this.skin_color = skin_color;
     this.eye_color = eye_color;
     this.homeworld = this.getPlanet(homeworld);
-    //this.starships = this.get(starships);
+    this.starships = starships;
     //this.vehicles = this.get(vehicles);
     this.pictureURL = this.generatePictureUrl();
   }
@@ -80,37 +79,33 @@ class Character {
     if (similarValues) {
       let text = [];
       similarValues.forEach((val) => {
-        console.log(val);
-        let t = `${val[0]} ${val[1].match(/^.{4}/)}`;
-        text.push(t);
+        let movie = `${val[0]} (${val[1].match(/^.{4}/)})<br>`;
+        text.push(movie);
       });
 
-      text.join("");
-      this.printToCardMsg(`Both characters appear in: ${text}`);
+      this.printToCardMsg(`Both characters appear in:<br>${text}`);
     } else {
       this.printToCardMsg("The characters never appear in the same movie");
     }
   };
   compareHomePlanet = async (char2) => {
     if ((await this.homeworld) === (await char2.homeworld)) {
-      let text = `Both characters are from ${await char2.homeworld}`;
-      this.printToCardMsg(text);
+      this.printToCardMsg(`Both characters are from ${await char2.homeworld}`);
     } else {
-      let text = `${this.name} is from ${await this.homeworld}`;
-      this.printToCardMsg(text);
+      this.printToCardMsg(`${this.name} is from ${await this.homeworld}`);
     }
   };
   printToCardMsg(string) {
     let msgContainer = document.querySelector(".message-container");
     msgContainer.innerHTML = `${string}`;
   }
-  showFirstMovie = async () => {
+  printFirstMovie = async () => {
     let arr = await this.films;
-    let text = `${this.name} first appeared in ${
-      arr[0][0]
-    } in ${arr[0][1].match(/^.{4}/)}`;
-
-    this.printToCardMsg(text);
+    this.printToCardMsg(
+      `${this.name} first appeared in ${arr[0][0]} in ${arr[0][1].match(
+        /^.{4}/
+      )}`
+    );
   };
   getFilms = async (arr) => {
     let films = await this.getMultiple(arr);
@@ -122,7 +117,6 @@ class Character {
   getMultiple = async (arr) => {
     try {
       let promises = arr.map((id) => this.get(id));
-      //Returnerar rejectade och resolvade promises
       let data = await Promise.allSettled(promises);
       return data;
     } catch (error) {
@@ -148,9 +142,7 @@ class Character {
     }
   };
   addPictureCard() {
-    let pictureCards = document.querySelector(".picture-cards");
     let short = this.name.toLowerCase().replace(/ .*/, "");
-
     let div = document.createElement("div");
     div.classList.add("card");
     div.innerHTML = `
@@ -168,10 +160,11 @@ class Character {
                   <button class="dollar-button ${short}">$vehicle</button>
                 </div>
             </div>
-
         `;
-    pictureCards.append(div);
-
+    document.querySelector(".picture-cards").append(div);
+    this.addCardEventlisteners(short);
+  }
+  addCardEventlisteners(short) {
     document
       .querySelector(`.planet-button.${short}`)
       .addEventListener("click", (event) => {
@@ -185,7 +178,7 @@ class Character {
       .querySelector(`.first-button.${short}`)
       .addEventListener("click", (event) => {
         event.preventDefault();
-        this.showFirstMovie();
+        this.printFirstMovie();
       });
     document
       .querySelector(`.both-button.${short}`)
@@ -195,13 +188,12 @@ class Character {
           character2.name === this.name ? character1 : character2
         );
       });
-  }
-  addMsgContainer() {
-    let pictureCards = document.querySelector(".card-section");
-    let div = document.createElement("div");
-    div.innerHTML = " Placeholder ";
-    div.classList.add("message-container", "card");
-    pictureCards.append(div);
+    document
+      .querySelector(`.dollar-button.${short}`)
+      .addEventListener("click", (event) => {
+        event.preventDefault();
+        this.printToCardMsg("dollaldollaa")
+      });
   }
   compare(string, attr1, attr2) {
     let compareAttributes = document.querySelector(".compare-attributes");
