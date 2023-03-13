@@ -3,62 +3,56 @@
     overflow: hidden;
     flex-direction: column;
     justify-content: space-evenly;
-    div {
-        display: flex;
-    justify-content: space-evenly;
-        flex-direction: row;
-    }
 
+    .picture-cards {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .message-container{
+        display: flex;
+        flex-direction: column;
+    }
     .card {
-        outline: 1px solid red;
         display: flex;
         padding: 0.5rem;
         outline: 1px solid $starwars;
         gap: 1rem;
+    }
+
+    img {
+        border: 1px solid $accent-light;
+    }
+}
+
+.picture {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    color: $text-1;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    #picture-section {
+        .card {
+            flex-direction: column;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #picture-section {
+        div {
+            flex-direction: column;
+        }
 
         .msg {
-            flex-direction: column;
-            gap: 1rem;
-            div{
-                display: flex;
-                gap:0.4rem;
-                &:last-child{
-                    outline: 1px solid red;
-                }
+            div:first-child {
+                flex-direction: row;
+                outline: 1px solid rgb(47, 0, 255);
             }
-            //padding: 1rem;
-        }
-
-        img {
-            border: 1px solid $accent-light;
         }
     }
-
-    .picture {
-        display: flex;
-        flex-direction: column;
-        // justify-content: center;
-        // align-items: center;
-        color: $text-1;
-    }
-}
-@media only screen and (max-width: 1000px) {
-  #picture-section{
-    .card{
-        flex-direction: column;
-    }
-  }
-}
-@media only screen and (max-width: 600px) {
-  #picture-section{
-    div{
-        flex-direction: column;
-    }
-    .msg{
-        div:first-child{
-            flex-direction: row;
-            outline: 1px solid rgb(47, 0, 255);
-        }
-    }
-  }
 }

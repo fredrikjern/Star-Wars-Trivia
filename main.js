@@ -13,6 +13,7 @@ downloadBtn.addEventListener("click", (event) => {
   }
 });
 async function downloadStage() {
+  //console.log(await getData(BASE_URL + "people/?search="));
   character1 = await createCharacter(
     document.getElementById("character-1").value
   );
@@ -23,6 +24,10 @@ async function downloadStage() {
   character2.addPictureCard();
 
   character1.compareRender(character2);
+  //console.log(await character1.vehicles);
+  //console.log(await character1.starships);
+  console.log(await character2.vehicles);
+  console.log(await character2.starships);
 }
 
 let compareButton = document.getElementById("compare-button");
@@ -59,11 +64,36 @@ class Character {
     this.skin_color = skin_color;
     this.eye_color = eye_color;
     this.homeworld = this.getPlanet(homeworld);
-    this.starships = starships;
-    //this.vehicles = this.get(vehicles);
+    this.starships = this.getVehicles(starships);
+    this.vehicles = this.getVehicles(vehicles);
     this.pictureURL = this.generatePictureUrl();
   }
-  //*Methods
+  //*         Methods
+  printMostExpensiveVehicle = async () => {
+    console.log("klick");
+    let v= await this.starships;
+    this.printToCardMsg(`<h3>${this.name}'s most expensive vehicle is:</h3>
+    <p>Model:${v[0][0]}</p>
+    <p>Name:${v[0][1]}</p>
+    <p>Price: ${v[0][2]} space dollars</p>
+     `);
+  };
+  getVehicles = async (url) => {
+    let vehicles = await this.getMultiple(url);
+    //console.log(vehicles);
+    let veArr = vehicles.map((vehicle) => {
+      let { model, name, cost_in_credits } = vehicle.value;
+      return [model, name, cost_in_credits];
+    });
+    console.log(veArr);
+    veArr.sort((a, b) => {
+      const aPrice = a[2] === "unknown" ? 0 : parseInt(a[2]);
+      const bPrice = b[2] === "unknown" ? 0 : parseInt(b[2]);
+      return bPrice - aPrice;
+    });
+
+    return veArr;
+  };
   compareFilms = async (char2) => {
     let f1 = await this.films;
     let f2 = await char2.films;
@@ -120,7 +150,7 @@ class Character {
       let data = await Promise.allSettled(promises);
       return data;
     } catch (error) {
-      console.log("Error", error);
+      console.log("Error i getMultiple", error);
     }
   };
   getPlanet = async (homeworld) => {
@@ -133,6 +163,7 @@ class Character {
   };
   get = async (url) => {
     try {
+      //console.log(url);
       let response = await fetch(url);
       let json = await response.json();
       return json;
@@ -157,7 +188,7 @@ class Character {
                   <button class="planet-button ${short}">Homeplanet</button>
                   <button class="first-button ${short}">First Movie</button>
                   <button class="both-button ${short}">Both</button>
-                  <button class="dollar-button ${short}">$vehicle</button>
+                  <button class="vehicle-button ${short}">$vehicle</button>
                 </div>
             </div>
         `;
@@ -182,17 +213,17 @@ class Character {
       });
     document
       .querySelector(`.both-button.${short}`)
-      .addEventListener("click", (event) => {
+      .addEventListener("click", async (event) => {
         event.preventDefault();
         this.compareFilms(
           character2.name === this.name ? character1 : character2
         );
       });
     document
-      .querySelector(`.dollar-button.${short}`)
-      .addEventListener("click", (event) => {
+      .querySelector(`.vehicle-button.${short}`)
+      .addEventListener("click", async (event) => {
         event.preventDefault();
-        this.printToCardMsg("dollaldollaa")
+        this.printMostExpensiveVehicle();
       });
   }
   compare(string, attr1, attr2) {
