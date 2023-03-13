@@ -1,41 +1,53 @@
 const BASE_URL = "https://swapi.dev/api/";
-let character1;
-let character2;
 let deleteClick = false;
 let downloadBtn = document.getElementById("download-button");
+let character1;
+let character2;
+async function downloadStage() {
+  try {
+    let arr = [
+      document.getElementById("character-1").value,
+      document.getElementById("character-2").value,
+    ];
+    let promises = arr.map((val) => getCharacterData(val));
+    let [a, b] = await Promise.allSettled(promises);
+    character1 = createCharacter(a.value);
+    character2 = createCharacter(b.value);
+
+    character1.addPictureCard();
+    character1.addCardEventlisteners();
+    character2.addPictureCard();
+    character2.addCardEventlisteners();
+    character1.bothEventlistener(character2)
+    character2.bothEventlistener(character1)
+    character1.compareRender(character2)
+
+    let buttonDiv = document.querySelector(".button-div");
+    buttonDiv.classList.remove("rotated");
+  } catch (error) {}
+}
 downloadBtn.addEventListener("click", (event) => {
   event.preventDefault();
   if (!deleteClick) {
     deleteClick = true;
+    setTimeout(() => {
+      deleteClick=false
+    }, 1500);
+    let cardSection = document.querySelector(".card-section");
+    cardSection.classList.remove("rotated")
+    document.querySelector(".picture-cards").innerHTML="";
+    document.querySelector(".compare-attributes").innerHTML="";
     downloadStage();
   } else {
     console.log("Stop clicking you shall");
   }
 });
-async function downloadStage() {
-  //console.log(await getData(BASE_URL + "people/?search="));
-  character1 = await createCharacter(
-    document.getElementById("character-1").value
-  );
-  character2 = await createCharacter(
-    document.getElementById("character-2").value
-  );
-  character1.addPictureCard();
-  character2.addPictureCard();
-
-  character1.compareRender(character2);
-  //console.log(await character1.vehicles);
-  //console.log(await character1.starships);
-  console.log(await character2.vehicles);
-  console.log(await character2.starships);
-}
 
 let compareButton = document.getElementById("compare-button");
 compareButton.addEventListener("click", (event) => {
   event.preventDefault();
   let compareSection = document.querySelector(".compare-section");
   compareSection.classList.toggle("none");
-  console.log("jkux");
 });
 
 // !----------------
@@ -68,15 +80,33 @@ class Character {
     this.vehicles = this.getVehicles(vehicles);
     this.pictureURL = this.generatePictureUrl();
   }
-  //*         Methods
+  //*     Methods
+  bothEventlistener(character2) {
+    let bothBtn = document.querySelector(`.both-button.${this.getShortName()}`);
+    bothBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.compareFilms(character2);
+    });
+    bothBtn.classList.remove("rotated");
+  }
   printMostExpensiveVehicle = async () => {
-    console.log("klick");
-    let v= await this.starships;
-    this.printToCardMsg(`<h3>${this.name}'s most expensive vehicle is:</h3>
-    <p>Model:${v[0][0]}</p>
-    <p>Name:${v[0][1]}</p>
-    <p>Price: ${v[0][2]} space dollars</p>
-     `);
+    let vehicles = await this.vehicles;
+    let starships = await this.starships;
+    let all = [...vehicles, ...starships];
+    all.sort((a, b) => {
+      const aPrice = a[2] === "unknown" ? 0 : parseInt(a[2]);
+      const bPrice = b[2] === "unknown" ? 0 : parseInt(b[2]);
+      return bPrice - aPrice;
+    });
+    if (all.length > 0) {
+      this.printToCardMsg(`<h3>${this.name}'s most expensive vehicle is:</h3>
+      <p>Model:${all[0][0]}</p>
+      <p>Name:${all[0][1]}</p>
+      <p>Price: ${all[0][2]} space dollars</p>
+       `);
+    } else {
+      this.printToCardMsg(`<p>${this.name} doesn't have any vehicles</p>`);
+    }
   };
   getVehicles = async (url) => {
     let vehicles = await this.getMultiple(url);
@@ -84,12 +114,6 @@ class Character {
     let veArr = vehicles.map((vehicle) => {
       let { model, name, cost_in_credits } = vehicle.value;
       return [model, name, cost_in_credits];
-    });
-    console.log(veArr);
-    veArr.sort((a, b) => {
-      const aPrice = a[2] === "unknown" ? 0 : parseInt(a[2]);
-      const bPrice = b[2] === "unknown" ? 0 : parseInt(b[2]);
-      return bPrice - aPrice;
     });
 
     return veArr;
@@ -172,8 +196,11 @@ class Character {
       console.log("Fel i get");
     }
   };
+  getShortName() {
+    return this.name.toLowerCase().replace(/ .*/, "");
+  }
   addPictureCard() {
-    let short = this.name.toLowerCase().replace(/ .*/, "");
+    let short = this.getShortName();
     let div = document.createElement("div");
     div.classList.add("card");
     div.innerHTML = `
@@ -185,47 +212,51 @@ class Character {
                     <h3>${this.name}</h3>
                 </div>
                 <div>
-                  <button class="planet-button ${short}">Homeplanet</button>
-                  <button class="first-button ${short}">First Movie</button>
-                  <button class="both-button ${short}">Both</button>
-                  <button class="vehicle-button ${short}">$vehicle</button>
+                  <button class="homeworld-button ${short} rotated">Homeworld</button>
+                  <button class="first-button ${short} rotated">First Movie</button>
+                  <button class="both-button ${short} rotated">Both</button>
+                  <button class="vehicle-button ${short} rotated">$vehicle</button>
                 </div>
             </div>
         `;
     document.querySelector(".picture-cards").append(div);
-    this.addCardEventlisteners(short);
   }
-  addCardEventlisteners(short) {
-    document
-      .querySelector(`.planet-button.${short}`)
-      .addEventListener("click", (event) => {
-        event.preventDefault();
-        console.log("hime");
-        this.compareHomePlanet(
-          character2.name === this.name ? character1 : character2
-        );
-      });
-    document
-      .querySelector(`.first-button.${short}`)
-      .addEventListener("click", (event) => {
-        event.preventDefault();
-        this.printFirstMovie();
-      });
-    document
-      .querySelector(`.both-button.${short}`)
-      .addEventListener("click", async (event) => {
-        event.preventDefault();
-        this.compareFilms(
-          character2.name === this.name ? character1 : character2
-        );
-      });
-    document
-      .querySelector(`.vehicle-button.${short}`)
-      .addEventListener("click", async (event) => {
-        event.preventDefault();
-        this.printMostExpensiveVehicle();
-      });
+  addCardEventlisteners() {
+    this.homeworldEventistener(this.getShortName());
+    this.firstEventistener(this.getShortName());
+    this.vehicleEventistener(this.getShortName());
   }
+  homeworldEventistener = async (short) => {
+    await this.homeworld;
+    let planetBtn = document.querySelector(`.homeworld-button.${short}`);
+    planetBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.compareHomePlanet(
+        character2.name === this.name ? character1 : character2
+      );
+    });
+    planetBtn.classList.remove("rotated");
+  };
+
+  firstEventistener = async (short) => {
+    await this.films;
+    let firstBtn = document.querySelector(`.first-button.${short}`);
+    firstBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.printFirstMovie();
+    });
+    firstBtn.classList.remove("rotated");
+  };
+  vehicleEventistener = async (short) => {
+    await this.vehicles;
+    await this.starships;
+    let vehicleBtn = document.querySelector(`.vehicle-button.${short}`);
+    vehicleBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.printMostExpensiveVehicle();
+    });
+    vehicleBtn.classList.remove("rotated");
+  };
   compare(string, attr1, attr2) {
     let compareAttributes = document.querySelector(".compare-attributes");
     let attribute = document.createElement("div");
@@ -258,7 +289,7 @@ class Character {
 
 // ?Färdiga helpers
 
-let createCharacter = async (string) => {
+function createCharacter(data) {
   let {
     name,
     gender,
@@ -271,8 +302,8 @@ let createCharacter = async (string) => {
     homeworld,
     starships,
     vehicles,
-  } = await getData(BASE_URL + "people/?search=" + `${string}`);
-  let newCharacter = new Character(
+  } = data;
+  return new Character(
     name,
     gender,
     height,
@@ -285,19 +316,22 @@ let createCharacter = async (string) => {
     starships,
     vehicles
   );
-  return newCharacter;
-};
+}
+async function getCharacterData(string) {
+  return await getData(BASE_URL + "people/?search=" + `${string}`);
+}
 let getData = async (url) => {
   try {
     let response = await fetch(url);
     let json = await response.json();
     let results = json.results;
-    // console.log(results);
+     console.log(results);
     return results[0];
   } catch (error) {
     console.log(error);
     console.log("Fel i getData");
   }
 };
+
 // init
-downloadStage();
+//downloadStage();

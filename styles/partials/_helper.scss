@@ -1,4 +1,8 @@
 body {
+    .rotated{
+        transition: 500ms;
+        transform: rotateX(90deg);
+    }
     .short{
         height: 20px;
         background: red;

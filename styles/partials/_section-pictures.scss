@@ -3,16 +3,32 @@
     overflow: hidden;
     flex-direction: column;
     justify-content: space-evenly;
+    transition: ease-in-out 300ms;
 
     .picture-cards {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
+        button{
+        transition: 500ms ease-in;
+        }
     }
-    .message-container{
+
+    .message-container {
         display: flex;
         flex-direction: column;
+        margin: 1rem;
     }
+
+    .button-div {
+        display: flex;
+        margin: 1rem;
+        justify-content: center;
+        outline: 1px solid rgb(64, 0, 255);
+        transition: 500ms ease-in;
+    }
+
+
     .card {
         display: flex;
         padding: 0.5rem;
@@ -25,13 +41,7 @@
     }
 }
 
-.picture {
-    display: flex;
-    flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
-    color: $text-1;
-}
+
 
 
 @media only screen and (max-width: 1000px) {
