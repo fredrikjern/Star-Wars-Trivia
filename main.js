@@ -213,11 +213,9 @@ class Character {
     let short = this.getShortName();
     let div = document.createElement("div");
     div.classList.add("card");
+    div.style.background = `url(${this.pictureURL})`;
     div.innerHTML = `
             <div class="picture">
-                <div>
-                    <img src="${this.pictureURL}" alt="">
-                </div>
                 <div id="">
                     <h3>${this.name}</h3>
                 </div>
@@ -293,7 +291,7 @@ class Character {
     this.compare("Gender", this.gender, char2.gender);
   }
   generatePictureUrl() {
-    return `/assets/${this.name.toLowerCase().replace(/ .*/, "")}.svg`;
+    return `/assets/${this.name.toLowerCase().replace(/ .*/, "")}.png`;
   }
 }
 
