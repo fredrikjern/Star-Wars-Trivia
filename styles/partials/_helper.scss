@@ -3,6 +3,11 @@ body {
         transition: 500ms;
         transform: rotateX(90deg);
     }
+    .scale{
+        transition: 500ms;
+        transform:  scale(0.0);
+        
+    }
     .short{
         height: 20px;
         background: red;

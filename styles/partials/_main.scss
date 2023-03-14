@@ -3,19 +3,42 @@
     flex-direction: column;
     gap: 1rem;
 
+    #download-button {
+      background: transparent;
+      font-family: 'Star Wars', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      color: $starwars;
+    }
+
     section {
       background: $app-background;
       padding: 8px;
       display: flex;
       justify-content: center;
-      gap:1rem;
-      background: $app-background;
-
+      gap: 1rem;
+      color: $accent-light;
+      
+      &:first-child{
+        select {
+            appearance: none;
+            // Additional resets for further consistency
+            background-color: transparent;
+            border: none;
+            color: inherit;
+            padding: 0 1rem 0 0;
+            margin: 0;
+            width: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            cursor: inherit;
+            line-height: inherit;
+          }
+      }
       p {
         margin: 0px;
         padding: 2px;
         ;
       }
+
       button {
         border: none;
         padding: 0.5rem;

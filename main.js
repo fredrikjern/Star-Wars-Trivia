@@ -35,7 +35,17 @@ downloadBtn.addEventListener("click", (event) => {
     }, 1500);
     let cardSection = document.querySelector(".card-section");
     cardSection.classList.remove("rotated")
-    document.querySelector(".picture-cards").innerHTML="";
+    let pcard = document.querySelector(".picture-cards")
+    pcard.innerHTML = "";
+    setTimeout(() => {
+      pcard.classList.remove("rotated")
+      document.querySelector("header h2").classList.add("scale")
+      setTimeout(() => {
+      document.querySelector("header h2").classList.add("none");
+        
+      }, 200);
+    }, 100);
+    
     document.querySelector(".compare-attributes").innerHTML="";
     downloadStage();
   } else {
