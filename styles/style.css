@@ -8,10 +8,11 @@ header {
   transition: 1000ms;
   letter-spacing: 2px;
 }
-header h1 {
+header h1.title-header {
   color: rgb(222, 218, 218);
+  border: 2px solid yellow;
   padding: 0.4rem 1rem;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 header h2 {
   transition: 1000ms;
@@ -20,7 +21,6 @@ header h2 {
 main {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 main #download-button {
   background: transparent;
@@ -28,7 +28,6 @@ main #download-button {
   color: #FFE81F;
 }
 main section {
-  background: rgba(35, 34, 34, 0.3);
   padding: 8px;
   display: flex;
   justify-content: center;
@@ -114,6 +113,10 @@ main .compare-section {
   color: rgb(222, 218, 218);
   flex-direction: row-reverse;
 }
+main .compare-section .message-container {
+  content: "";
+  width: 100%;
+}
 main .compare-section .compare-attributes {
   display: flex;
   flex-direction: column;
@@ -138,22 +141,35 @@ main .compare-section .winner {
   }
 }
 .card-section {
-  outline: 1px solid red;
   overflow: hidden;
   flex-direction: column;
   justify-content: space-evenly;
   transition: ease-in-out 300ms;
 }
-.card-section .picture-cards {
+.card-section .message-attribute {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+}
+.card-section .message-attribute .message-container {
+  content: "";
+  width: 100%;
+}
+.card-section .message-attribute .compare-attributes {
+  padding: 1rem;
+}
+.card-section .picture-cards {
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 .card-section .picture-cards button {
   transition: 500ms ease-in;
 }
 .card-section .message-container {
   display: flex;
+  padding: 0 1rem;
   flex-direction: column;
   margin: 1rem;
 }
@@ -161,17 +177,42 @@ main .compare-section .winner {
   display: flex;
   margin: 1rem;
   justify-content: center;
-  outline: 1px solid rgb(64, 0, 255);
   transition: 500ms ease-in;
 }
 .card-section .card {
   display: flex;
-  padding: 0.5rem;
-  outline: 1px solid #FFE81F;
+  margin: 1rem;
   gap: 1rem;
+  background-size: cover;
+  aspect-ratio: 1/1;
+}
+.card-section .card .picture {
+  padding: 0.5rem;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
+}
+.card-section .card div {
+  align-self: flex-end;
 }
 .card-section img {
   border: 1px solid rgb(222, 218, 218);
+}
+.card-section .compare-attributes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.card-section .compare-attributes div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 0.5rem;
+}
+.card-section .equal {
+  font-weight: bold;
+}
+.card-section .winner {
+  color: green;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -180,18 +221,14 @@ main .compare-section .winner {
   }
 }
 @media only screen and (max-width: 600px) {
-  #picture-section div {
+  .card-section .message-attribute {
     flex-direction: column;
-  }
-  #picture-section .msg div:first-child {
-    flex-direction: row;
-    outline: 1px solid rgb(47, 0, 255);
   }
 }
 *,
 *::before,
 *::after {
-  font-size: calc(16px + 6 * (100vw - 320px) / 960);
+  font-size: calc(16px + 10 * (100vw - 320px) / 960);
   box-sizing: border-box;
 }
 

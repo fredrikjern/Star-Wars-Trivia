@@ -6,7 +6,10 @@
           gap: 1rem;
           color: $accent-light;
           flex-direction: row-reverse;
-
+        .message-container{
+            content: "";
+            width: 100%;
+        }
           .compare-attributes {
               display: flex;
               flex-direction: column;

@@ -53,12 +53,12 @@ downloadBtn.addEventListener("click", (event) => {
   }
 });
 
-let compareButton = document.getElementById("compare-button");
-compareButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  let compareSection = document.querySelector(".compare-section");
-  compareSection.classList.toggle("none");
-});
+// let compareButton = document.getElementById("compare-button");
+// compareButton.addEventListener("click", (event) => {
+//   event.preventDefault();
+//   let compareSection = document.querySelector(".compare-section");
+//   compareSection.classList.toggle("none");
+// });
 
 // !----------------
 
@@ -213,7 +213,8 @@ class Character {
     let short = this.getShortName();
     let div = document.createElement("div");
     div.classList.add("card");
-    div.style.background = `url(${this.pictureURL})`;
+    div.style.backgroundImage = `url(${this.pictureURL})`;
+    // div.style.backgroundSize="cover"
     div.innerHTML = `
             <div class="picture">
                 <div id="">

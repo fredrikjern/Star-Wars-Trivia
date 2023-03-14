@@ -9,10 +9,11 @@
             transition: 1000ms;
 
             letter-spacing: 2px;
-            h1 {
+            h1.title-header {
                 color: $accent-light;
+                border: 2px solid yellow;
                 padding: 0.4rem 1rem;
-                font-size: 1.8rem;
+                font-size: 1.4rem;
                 
             }
             h2{

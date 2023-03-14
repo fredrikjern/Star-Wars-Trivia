@@ -1,7 +1,6 @@
   main {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
 
     #download-button {
       background: transparent;
@@ -10,7 +9,7 @@
     }
 
     section {
-      background: $app-background;
+      
       padding: 8px;
       display: flex;
       justify-content: center;

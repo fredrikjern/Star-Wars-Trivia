@@ -1,43 +1,95 @@
 .card-section {
-    outline: 1px solid red;
+    //outline: 1px solid red;
     overflow: hidden;
     flex-direction: column;
     justify-content: space-evenly;
     transition: ease-in-out 300ms;
-
-    .picture-cards {
+    
+    .message-attribute{
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
-        button{
-        transition: 500ms ease-in;
+        justify-content: center;
+        //outline: 1px solid rgb(0, 13, 255);
+            .message-container {
+                    content: "";
+                    width: 100%;
+                }
+        .compare-attributes{
+            padding: 1rem;
+        }
+    }
+
+    .picture-cards {
+
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        button {
+            transition: 500ms ease-in;
         }
     }
 
     .message-container {
         display: flex;
+        padding: 0 1rem;
         flex-direction: column;
         margin: 1rem;
+        //outline: 1px solid red;
     }
 
     .button-div {
         display: flex;
         margin: 1rem;
         justify-content: center;
-        outline: 1px solid rgb(64, 0, 255);
+        //outline: 1px solid rgb(64, 0, 255);
         transition: 500ms ease-in;
     }
 
 
     .card {
         display: flex;
-        padding: 0.5rem;
-        outline: 1px solid $starwars;
+        margin: 1rem;
+        //outline: 1px solid $starwars;
         gap: 1rem;
+        background-size: cover;
+        aspect-ratio: 1/1;
+
+        .picture {
+            padding: 0.5rem;
+            background: rgb(0, 0, 0);
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        div {
+            align-self: flex-end;
+        }
     }
 
     img {
         border: 1px solid $accent-light;
+    }
+
+    .compare-attributes {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 0 0.5rem;
+        }
+    }
+
+    .equal {
+        font-weight: bold;
+    }
+
+    .winner {
+        color: green;
     }
 }
 
@@ -53,16 +105,20 @@
 }
 
 @media only screen and (max-width: 600px) {
-    #picture-section {
-        div {
-            flex-direction: column;
-        }
 
-        .msg {
-            div:first-child {
-                flex-direction: row;
-                outline: 1px solid rgb(47, 0, 255);
-            }
+    .card-section {
+        .message-attribute {
+                flex-direction: column;
         }
+        // div {
+        //     flex-direction: column;
+        // }
+
+        // .msg {
+        //     div:first-child {
+        //         flex-direction: row;
+        //         outline: 1px solid rgb(47, 0, 255);
+        //     }
+        // }
     }
 }

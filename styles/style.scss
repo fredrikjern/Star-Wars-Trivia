@@ -10,10 +10,9 @@
 *,
 *::before,
 *::after {
-    font-size: calc(16px + (22 - 16) * ((100vw - 320px) / (1280 - 320)));
+    font-size: calc(16px + (22 - 12) * ((100vw - 320px) / (1280 - 320)));
     //outline: 1px solid red;
     box-sizing: border-box;
-
 }
 
 body {
@@ -26,8 +25,6 @@ body {
     h2 {
         font-size: 1rem;
     }
-
-
     .container {
         padding: 1rem;
         display: flex;
@@ -36,9 +33,6 @@ body {
         max-width: 1200px;
         margin: auto;
     }
-
-
-
 }
 
 @media only screen and (min-width: 1800px) {
