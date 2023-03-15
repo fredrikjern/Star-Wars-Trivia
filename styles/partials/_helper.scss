@@ -1,4 +1,11 @@
 body {
+    .loaded{
+        fill: $starwars;
+    }
+    .blur {
+        filter: blur(0.5rem);
+    }
+
     .rotated {
         transition: 500ms;
         transform: rotateX(90deg);

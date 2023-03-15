@@ -25,7 +25,6 @@ main {
 main .card {
   padding: 0.2rem;
   background: rgba(35, 34, 34, 0.3);
-  outline: 1px solid #FFE81F;
 }
 
 section.download-section {
@@ -85,6 +84,12 @@ footer {
   width: 100vw;
 }
 
+body .loaded {
+  fill: #FFE81F;
+}
+body .blur {
+  filter: blur(0.5rem);
+}
 body .rotated {
   transition: 500ms;
   transform: rotateX(90deg);
@@ -124,26 +129,63 @@ section.card-section {
   display: flex;
   padding: 1rem;
   margin: 0px;
-  gap: 0.2rem;
-  overflow: auto;
+  gap: 1.2rem;
   flex-direction: column;
   justify-content: space-evenly;
+  transition: 300ms;
 }
 section.card-section .picture-cards {
   gap: 1rem;
   padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+section.card-section .picture-cards .card {
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  flex-wrap: wrap;
+  gap: 0.4rem;
 }
-section.card-section .picture-cards .card {
+section.card-section .picture-cards .card .picture {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column-reverse;
+  aspect-ratio: 1/1;
+  background-size: cover;
+}
+section.card-section .picture-cards .card .picture .svg-buttons {
+  overflow: auto;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  padding: 0.5rem;
+  justify-content: space-between;
+}
+section.card-section .picture-cards .card .picture .svg-buttons div.loaded:hover {
+  transform: scale(1.15);
+}
+section.card-section .picture-cards .card .picture .svg-buttons svg {
+  width: 1.2rem;
+  fill: inherit;
+}
+section.card-section .picture-cards .card .picture .svg-buttons svg .path2 {
+  fill: rgb(27, 26, 26);
+}
+section.card-section .picture-cards .card .picture .svg-buttons > :last-child {
+  width: 1.4rem;
+}
+section.card-section .picture-cards .card .picture .svg-buttons > :last-child svg {
+  width: 1.4rem;
+}
+section.card-section .picture-cards .card .picture h3 {
+  color: rgb(222, 218, 218);
+  margin: 0;
+  padding: 0.4rem;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
 }
 section.card-section .picture-cards .card:last-child {
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 section.card-section .picture-cards .card > div:last-child {
   display: flex;
@@ -160,36 +202,6 @@ section.card-section .picture-cards .card > div:last-child button {
 }
 section.card-section .picture-cards .card > div:last-child button :hover {
   border: 1px solid #FFE81F;
-}
-section.card-section .picture-cards .picture {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column-reverse;
-  aspect-ratio: 1/1;
-  background-size: cover;
-}
-section.card-section .picture-cards .picture .svg-buttons {
-  display: flex;
-  flex-direction: row;
-  padding: 0.2rem;
-  justify-content: space-between;
-}
-section.card-section .picture-cards .picture .svg-buttons svg {
-  width: 1.2rem;
-}
-section.card-section .picture-cards .picture .svg-buttons > :last-child {
-  width: 1.4rem;
-  fill: red;
-}
-section.card-section .picture-cards .picture .svg-buttons > :last-child svg {
-  width: 1.4rem;
-}
-section.card-section .picture-cards .picture h3 {
-  color: rgb(222, 218, 218);
-  margin: 0;
-  padding: 0.4rem;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
 }
 
 h4 {
@@ -214,23 +226,58 @@ p {
   }
 }
 .message-attribute {
+  padding: 0.5rem;
+  gap: 0.4rem;
   color: rgb(222, 218, 218);
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
   justify-content: center;
 }
 .message-attribute .message-container {
+  border-radius: 4px;
+  flex-grow: 1;
+  border: 1px solid rgb(222, 218, 218);
   justify-content: flex-start;
   align-items: flex-start;
   padding: 1rem;
   content: "";
-  border: 1px solid red;
+  transition: 300ms;
+}
+.message-attribute .compare-card {
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+  justify-content: center;
+}
+.message-attribute .show-comparison {
+  font-family: "Star Wars", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: rgba(35, 34, 34, 0.3);
+  z-index: 1;
+}
+.message-attribute .show-comparison h2 {
+  border-bottom: 1px solid rgb(32, 32, 32);
+}
+.message-attribute .show-comparison:hover h2 {
+  transform: scale(1.05);
+  border-bottom: 1px solid #FFE81F;
 }
 .message-attribute .compare-attributes {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   justify-content: space-between;
+  max-width: 300px;
+  min-width: 150px;
 }
 .message-attribute .compare-attributes div {
   display: flex;
@@ -259,6 +306,7 @@ body .container {
   flex-direction: column;
   max-width: 1200px;
   margin: auto;
+  transition: 300ms;
 }
 
 @media only screen and (min-width: 1800px) {
