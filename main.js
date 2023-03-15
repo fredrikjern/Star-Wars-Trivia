@@ -118,9 +118,9 @@ class Character {
       return bPrice - aPrice;
     });
     if (all.length > 0) {
-      this.printToCardMsg(`<h4>${this.name}'s most expensive vehicle is:</h4>
-      <p>Model: ${all[0][0]} called <b>${all[0][1]}</b></p>
-      <p>Price: ${all[0][2]} space dollar$</p>
+      this.printToCardMsg(`<h4>${this.name}'s most expensive vehicle is a</h4>
+      <p><span class="winner">${all[0][0]}</span> called <span class="winner">${all[0][1]}</span></p>
+      <p>Cost: <span class="winner"> ${all[0][2]}</span> space dollar$</p>
        `);
     } else {
       this.printToCardMsg(`<p>${this.name} doesn't have any vehicles</p>`);
