@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars Trivia</title>
     <link rel="stylesheet" href="styles/style.css">
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous"/> -->
+
     <script src="main.js" defer></script>
 </head>
 <body>
@@ -15,26 +17,23 @@
             <h2>Choose your fighters!</h2>
         </header>
         <main>
-            <section>
+            <section class="download-section">
                 <div>
-
                     <select name="char1" id="character-1">
                         <option value="Luke Skywalker">Luke Skywalker</option>
                         <option value="Obi-Wan Kenobi">Obi-Wan Kenobi</option>
                         <option value="Owen Lars">Owen Lars</option>
                         <option value="Darth Vader">Darth Vader</option>
                         <option value="Leia Organa">Leia Organa</option>
-
                     </select>
                 </div>
                 <div>
                     <button id="download-button">Compare</button>
                 </div>
                 <div>
-
                     <select name="char1" id="character-2">
                         <option value="Boba Fett">Boba Fett</option>
-                        <option value="R2-D2">R2</option>
+                        <option value="R2-D2">R2-D2</option>
                         <option value="Darth Vader">Darth Vader</option>
                             <option value="Luke Skywalker">Luke Skywalker</option>
                     </select>
@@ -43,13 +42,10 @@
             <section class="card-section rotated">
                 <div class="picture-cards rotated"></div>
                 <div class="message-attribute">
-                    <div class="message-container"></div>
-                    <div class="compare-attributes"></div>
+                    <div class="message-container card"></div>
+                    <div class="compare-attributes card"></div>
                 </div>
-
             </section>    
-            <section class="compare-section none">
-            </section>
         </main>
     </div>
     <footer class="hidden">© Fredrik Jernberg 2023</footer>

@@ -1,4 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/star-wars");
+@import url("https://use.fontawesome.com/releases/v5.15.4/css/all.css");
 header {
   display: flex;
   align-items: center;
@@ -10,7 +11,6 @@ header {
 }
 header h1.title-header {
   color: rgb(222, 218, 218);
-  border: 2px solid yellow;
   padding: 0.4rem 1rem;
   font-size: 1.4rem;
 }
@@ -22,19 +22,20 @@ main {
   display: flex;
   flex-direction: column;
 }
-main #download-button {
-  background: transparent;
-  font-family: "Star Wars", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  color: #FFE81F;
+main .card {
+  padding: 0.2rem;
+  background: rgba(35, 34, 34, 0.3);
+  outline: 1px solid #FFE81F;
 }
-main section {
+
+section.download-section {
   padding: 8px;
   display: flex;
   justify-content: center;
   gap: 1rem;
   color: rgb(222, 218, 218);
 }
-main section:first-child select {
+section.download-section:first-child select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -52,19 +53,25 @@ main section:first-child select {
   cursor: inherit;
   line-height: inherit;
 }
-main section p {
+section.download-section p {
   margin: 0px;
   padding: 2px;
 }
-main section button {
+section.download-section button {
+  text-align: center;
+  font-family: "Star Wars", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   border: none;
   padding: 0.1rem;
   background: transparent;
   color: #FFE81F;
   transition: ease-in-out 300ms;
+  letter-spacing: 2px;
+  border-bottom: 2px solid transparent;
 }
-main section button:hover {
-  background: rgba(200, 199, 199, 0.1);
+section.download-section button:hover {
+  transition: ease-in-out 300ms;
+  transform: scale(1.05);
+  border-bottom: 3px solid #FFE81F;
 }
 
 footer {
@@ -86,6 +93,14 @@ body .scale {
   transition: 500ms;
   transform: scale(0);
 }
+body .equal {
+  font-weight: bold;
+  color: #FFE81F;
+}
+body .winner {
+  color: #FFE81F;
+  font-weight: bold;
+}
 body .short {
   height: 20px;
   background: red;
@@ -105,131 +120,127 @@ body .col {
   flex-direction: column;
 }
 
-main .compare-section {
+section.card-section {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 1rem;
+  margin: 0px;
+  gap: 0.2rem;
+  overflow: auto;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+section.card-section .picture-cards {
   gap: 1rem;
-  color: rgb(222, 218, 218);
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+section.card-section .picture-cards .card {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+section.card-section .picture-cards .card:last-child {
   flex-direction: row-reverse;
 }
-main .compare-section .message-container {
-  content: "";
-  width: 100%;
-}
-main .compare-section .compare-attributes {
+section.card-section .picture-cards .card > div:last-child {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
-main .compare-section .compare-attributes div {
+section.card-section .picture-cards .card > div:last-child button {
+  padding: 4px;
+  background: transparent;
+  border: 1px solid hsl(54, 100%, 16%);
+  border-radius: 6px;
+  color: rgb(222, 218, 218);
+  text-align: left;
+}
+section.card-section .picture-cards .card > div:last-child button :hover {
+  border: 1px solid #FFE81F;
+}
+section.card-section .picture-cards .picture {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  margin: 0 0.5rem;
-}
-main .compare-section .equal {
-  font-weight: bold;
-}
-main .compare-section .winner {
-  color: green;
-}
-
-@media only screen and (max-width: 800px) {
-  main .compare-section {
-    flex-direction: column;
-  }
-}
-.card-section {
-  overflow: hidden;
-  flex-direction: column;
-  justify-content: space-evenly;
-  transition: ease-in-out 300ms;
-}
-.card-section .message-attribute {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.card-section .message-attribute .message-container {
-  content: "";
-  width: 100%;
-}
-.card-section .message-attribute .compare-attributes {
-  padding: 1rem;
-}
-.card-section .picture-cards {
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.card-section .picture-cards button {
-  transition: 500ms ease-in;
-}
-.card-section .message-container {
-  display: flex;
-  padding: 0 1rem;
-  flex-direction: column;
-  margin: 1rem;
-}
-.card-section .button-div {
-  display: flex;
-  margin: 1rem;
-  justify-content: center;
-  transition: 500ms ease-in;
-}
-.card-section .card {
-  display: flex;
-  margin: 1rem;
-  gap: 1rem;
-  background-size: cover;
+  flex-direction: column-reverse;
   aspect-ratio: 1/1;
+  background-size: cover;
 }
-.card-section .card .picture {
-  padding: 0.5rem;
+section.card-section .picture-cards .picture .svg-buttons {
+  display: flex;
+  flex-direction: row;
+  padding: 0.2rem;
+  justify-content: space-between;
+}
+section.card-section .picture-cards .picture .svg-buttons svg {
+  width: 1.2rem;
+}
+section.card-section .picture-cards .picture .svg-buttons > :last-child {
+  width: 1.4rem;
+  fill: red;
+}
+section.card-section .picture-cards .picture .svg-buttons > :last-child svg {
+  width: 1.4rem;
+}
+section.card-section .picture-cards .picture h3 {
+  color: rgb(222, 218, 218);
+  margin: 0;
+  padding: 0.4rem;
   background: rgb(0, 0, 0);
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
 }
-.card-section .card div {
-  align-self: flex-end;
-}
-.card-section img {
-  border: 1px solid rgb(222, 218, 218);
-}
-.card-section .compare-attributes {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-.card-section .compare-attributes div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 0 0.5rem;
-}
-.card-section .equal {
-  font-weight: bold;
-}
-.card-section .winner {
-  color: green;
+
+h4 {
+  padding: 0;
+  margin: 0;
 }
 
-@media only screen and (max-width: 1000px) {
-  #picture-section .card {
-    flex-direction: column;
-  }
+p {
+  margin: 0;
+  padding: 0;
 }
+
 @media only screen and (max-width: 600px) {
+  .container {
+    padding: 0 !important;
+  }
+  .card-section .picture-cards {
+    padding: 0;
+  }
   .card-section .message-attribute {
     flex-direction: column;
   }
 }
-*,
-*::before,
-*::after {
+.message-attribute {
+  color: rgb(222, 218, 218);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.message-attribute .message-container {
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem;
+  content: "";
+  border: 1px solid red;
+}
+.message-attribute .compare-attributes {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.message-attribute .compare-attributes div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0 0.5rem;
+}
+
+* {
   font-size: calc(16px + 10 * (100vw - 320px) / 960);
-  box-sizing: border-box;
 }
 
 body {
@@ -238,7 +249,6 @@ body {
   background: url("../assets/background-large.jpeg");
   background-size: auto;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  transition: ease-in 300ms;
 }
 body h2 {
   font-size: 1rem;

@@ -1,18 +1,18 @@
 @import url('https://fonts.cdnfonts.com/css/star-wars');
+@import url('https://use.fontawesome.com/releases/v5.15.4/css/all.css');
 @import "partials/variables";
 @import "partials/header";
 @import "partials/main";
+@import "partials/download-section";
 @import "partials/footer";
 @import "partials/helper";
-@import "partials/section-compare";
-@import "partials/section-pictures";
+@import "partials/picture-cards";
+@import "partials/message-attribute";
 
-*,
-*::before,
-*::after {
+* {
     font-size: calc(16px + (22 - 12) * ((100vw - 320px) / (1280 - 320)));
+    //box-sizing: border-box;
     //outline: 1px solid red;
-    box-sizing: border-box;
 }
 
 body {
@@ -21,7 +21,7 @@ body {
     background: url('../assets/background-large.jpeg');
     background-size: auto;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    transition: ease-in 300ms;
+
     h2 {
         font-size: 1rem;
     }

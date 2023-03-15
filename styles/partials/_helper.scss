@@ -1,19 +1,32 @@
 body {
-    .rotated{
+    .rotated {
         transition: 500ms;
         transform: rotateX(90deg);
     }
-    .scale{
+
+    .scale {
         transition: 500ms;
-        transform:  scale(0.0);
-        
+        transform: scale(0.0);
+
     }
-    .short{
+
+    .equal {
+        font-weight: bold;
+        color: $starwars;
+    }
+
+    .winner {
+        color: $starwars;
+        font-weight: bold;
+    }
+
+    .short {
         height: 20px;
         background: red;
     }
+
     .none {
-        display: none!important;
+        display: none !important;
     }
 
     .hidden {

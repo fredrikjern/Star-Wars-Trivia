@@ -1,0 +1,125 @@
+section.card-section {
+    display: flex;
+    //outline: 1px solid #ccff00;
+    padding:1rem;
+    margin:0px;
+    gap: 0.2rem;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+  
+
+    .picture-cards {
+        //outline: 1px solid rgb(0, 21, 255);
+        gap: 1rem;
+        padding: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        flex-wrap: wrap;
+
+        .card {
+            //width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            &:last-child{
+                flex-direction: row-reverse;
+            }
+            >div:last-child{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                button {
+                    padding: 4px;
+                    background: transparent;
+                    border: 1px solid hsl(54, 100%, 16%);
+                    border-radius: 6px;
+                    color: $accent-light;
+                    text-align: left;
+                    :hover{
+                        border: 1px solid $starwars
+                    }
+                }
+            }
+
+            //border: 1px solid red;
+        }
+
+        .picture {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column-reverse;
+            aspect-ratio: 1/1;
+            background-size: cover;
+
+            .svg-buttons {
+                display: flex;
+                flex-direction: row;
+                padding: 0.2rem;
+                justify-content: space-between;
+
+                svg {
+                    width: 1.2rem;
+                }
+                >:last-child{
+                    
+                            width: 1.4rem;
+                            fill: red;
+                            svg{
+                            width: 1.4rem;
+                            }
+                        
+                }
+
+            }
+
+            h3 {
+                color: $accent-light;
+                margin: 0;
+                padding: 0.4rem;
+                background: rgb(0, 0, 0);
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
+            }
+
+
+        }
+    }
+
+
+
+
+}
+h4 {
+    padding: 0;
+    margin: 0;
+
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .container {
+        padding: 0 !important;
+    }
+
+    .card-section {
+        .picture-cards {
+            padding: 0;
+        }
+
+        .message-attribute {
+            flex-direction: column;
+        }
+
+    }
+}

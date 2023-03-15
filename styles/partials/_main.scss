@@ -2,56 +2,9 @@
     display: flex;
     flex-direction: column;
 
-    #download-button {
-      background: transparent;
-      font-family: 'Star Wars', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-      color: $starwars;
-    }
-
-    section {
-      
-      padding: 8px;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      color: $accent-light;
-      
-      &:first-child{
-        select {
-            appearance: none;
-            // Additional resets for further consistency
-            background-color: transparent;
-
-            border: 2px dashed orange;
-              border-radius: 4px;
-            color: inherit;
-            padding: 0.1rem 1rem 0.1rem 0.5rem;
-            margin: 0;
-            width: 100%;
-            font-family: inherit;
-            font-size: inherit;
-            font-weight: bold;
-            outline:none;
-            cursor: inherit;
-            line-height: inherit;
-          }
-      }
-      p {
-        margin: 0px;
-        padding: 2px;
-        ;
-      }
-
-      button {
-        border: none;
-        padding: 0.1rem;
-        background: transparent;
-        color: $starwars;
-        transition: ease-in-out 300ms;
-
-        &:hover {
-          background: rgba(200, 199, 199,0.1);
-        }
-      }
+    .card {
+      padding: 0.2rem;
+      background: $app-background;
+      outline: 1px solid $starwars;
     }
   }

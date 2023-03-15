@@ -1,23 +1,25 @@
-        header {
-            display: flex;
-            //justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            font-family: 'Star Wars', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+header {
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Star Wars', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
-            color: $starwars;
-            transition: 1000ms;
+    color: $starwars;
+    transition: 1000ms;
 
-            letter-spacing: 2px;
-            h1.title-header {
-                color: $accent-light;
-                border: 2px solid yellow;
-                padding: 0.4rem 1rem;
-                font-size: 1.4rem;
-                
-            }
-            h2{
-            transition: 1000ms;
-            }
+    letter-spacing: 2px;
 
-        }
+    h1.title-header {
+        color: $accent-light;
+        //border: 2px solid yellow;
+        padding: 0.4rem 1rem;
+        font-size: 1.4rem;
+
+    }
+
+    h2 {
+        transition: 1000ms;
+    }
+
+}
