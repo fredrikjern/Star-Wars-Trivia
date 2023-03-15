@@ -17,7 +17,7 @@ section.card-section {
         padding: 0;
         display: grid;
         grid-template-columns: 1fr 1fr;
-      
+
 
         .card {
             //width: 100%;
@@ -27,92 +27,64 @@ section.card-section {
             justify-content: space-evenly;
             gap: 0.4rem;
 
-            //flex-wrap: wrap;
-            //flex-grow: 1;
-            .picture {
-                //outline: 1px solid rgb(43, 255, 0);
-                display: flex;
-                justify-content: space-between;
-                flex-direction: column-reverse;
-                aspect-ratio: 1/1;
-                background-size: cover;
-
-                .svg-buttons {
-                    overflow: auto;
+            div {
+                .picture {
+                    //outline: 1px solid rgb(43, 255, 0);
                     display: flex;
-                    flex-direction: row;
-                    padding: 0.5rem;
                     justify-content: space-between;
-                    div.loaded{
-                        &:hover {
-                                transform: scale(1.15);
-                            }
-                    }
-
-                    svg {
-                        width: 1.2rem;
-                        fill: inherit;
-                        .path2{
-                            fill: rgb(27, 26, 26);
-                        }
-                        
-                    }
-
-                    >:last-child {
-                        width: 1.4rem;
-
-                        svg {
-                            width: 1.4rem;
-                        }
-
-                    }
-
+                    flex-direction: column-reverse;
+                    width: 100%;
+                    aspect-ratio: 1/1;
+                    background-size: cover;
                 }
-
-                h3 {
-                    color: $accent-light;
-                    margin: 0;
-                    padding: 0.4rem;
-                    background: rgb(0, 0, 0);
-                    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
-                }
-
-
             }
 
-            &:last-child {
-                flex-direction: row;
+            h3 {
+                color: $accent-light;
+                margin: 0;
+                padding: 0.4rem;
+                background: rgb(0, 0, 0);
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
             }
 
-            >div:last-child {
+            .svg-buttons {
                 display: flex;
                 flex-direction: column;
-                justify-content: space-evenly;
+                padding: 0.5rem;
+                justify-content: space-between;
+                align-items: center;
+                background: rgba(70, 26, 26,0.5);
 
-                button {
-                    padding: 4px;
-                    background: transparent;
-                    border: 1px solid hsl(54, 100%, 16%);
-                    border-radius: 6px;
-                    color: $accent-light;
-                    text-align: left;
+                div.loaded {
+                    &:hover {
+                        transform: scale(1.15);
+                    }
+                }
 
-                    :hover {
-                        border: 1px solid $starwars
+                svg {
+                    width: 1.2rem;
+                    fill: inherit;
+                    .both-icon-1{
+                        fill: $accent-light;
+                    }
+                    .path2 {
+                        fill: rgb(27, 26, 26);
                     }
                 }
             }
-
-            //border: 1px solid red;
         }
-
-
     }
 
 
-
-
+    //border: 1px solid red;
 }
+
+
+
+
+
+
+
 
 h4 {
     padding: 0;
