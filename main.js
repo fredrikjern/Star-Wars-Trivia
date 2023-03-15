@@ -231,8 +231,10 @@ class Character {
     divChild1.innerHTML = ` 
       
         <h3>${this.name}</h3>
-        <div class="svg-buttons">
-              <div class="homeworld-button
+    
+      `;
+    divChild2.innerHTML = `
+        <div class="homeworld-button
               ${this.getShortName()} button">  
               ${this.generateSVG("homeworld")}
               </div>
@@ -241,10 +243,6 @@ class Character {
               ${this.getShortName()}">
               ${this.generateSVG("vehicle")}
               </div>
-             
-      </div>
-      `;
-    divChild2.innerHTML = `
        <div class="first-button
               ${this.getShortName()}">
               ${this.generateSVG("movie")}
@@ -320,7 +318,7 @@ class Character {
       .toLowerCase()
       .replace(/ .*/, "")}.png`;
   }
-  
+
   generateSVG(string) {
     if (string === "homeworld") {
       return `<svg class="globe" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
