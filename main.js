@@ -316,7 +316,7 @@ class Character {
     this.compare("Gender", this.gender, char2.gender);
   }
   generatePictureUrl() {
-    return `/Star-Wars-Trivia/blob/main/assets/${this.name
+    return `/Star-Wars-Trivia/assets/${this.name
       .toLowerCase()
       .replace(/ .*/, "")}.png`;
   }
