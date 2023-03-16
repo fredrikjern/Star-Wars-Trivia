@@ -219,7 +219,7 @@ class Character {
     div.append(divChild1, divChild2);
     document.querySelector(".picture-cards").append(div);
   }
-  // ! --- Get Methods, request and returns data ---
+  // ! -- Get Methods, request and returns data --
   getVehicles = async (url) => {
     let vehicles = await this.getMultiple(url);
     let veArr = vehicles.map((vehicle) => {
@@ -265,7 +265,7 @@ class Character {
   getShortName() {
     return this.name.toLowerCase().replace(/ .*/, "");
   }
-  // * ---- Eventlisteners ----
+  // * -- Eventlisteners methods --
   addCardEventlisteners() {
     this.homeworldEventistener(this.getShortName());
     this.firstEventistener(this.getShortName());
@@ -309,7 +309,7 @@ class Character {
     });
     bothBtn.classList.add("loaded");
   }
-  // !----   Compare and render ----
+  // !----   Compare and render methods ----
   /**
    * this function compare attributes, adds ".winner" or ".equal" and then
    * appends attr1,string,attr2 with styling to the DOM(".attribute")
