@@ -1,6 +1,7 @@
 body {
     .loaded{
         fill: $starwars;
+        animation: scaleUpDown 0.5s normal forwards;
     }
     .blur {
         filter: blur(0.5rem);

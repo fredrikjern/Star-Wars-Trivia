@@ -1,4 +1,18 @@
 @import url("https://fonts.cdnfonts.com/css/star-wars");
+@keyframes scaleUpDown {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.05);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 header {
   display: flex;
   align-items: center;
@@ -93,6 +107,7 @@ footer {
 
 body .loaded {
   fill: #FFE81F;
+  animation: scaleUpDown 0.5s normal forwards;
 }
 body .blur {
   filter: blur(0.5rem);
