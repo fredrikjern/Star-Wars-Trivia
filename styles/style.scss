@@ -9,7 +9,7 @@
 @import "partials/message-attribute";
 
 * {
-    font-size: calc(16px + (22 - 12) * ((100vw - 320px) / (1280 - 320)));
+    font-size: calc(16px + (18 - 12) * ((100vw - 320px) / (1280 - 320)));
     //box-sizing: border-box;
     //outline: 1px solid red;
 }
@@ -29,7 +29,7 @@ body {
         display: flex;
         flex-direction: column;
 
-        max-width: 1200px;
+        max-width: 800px;
         margin: auto;
     transition: 300ms;
     }

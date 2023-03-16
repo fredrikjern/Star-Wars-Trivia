@@ -7,6 +7,10 @@
         flex-direction: row;
         flex-grow: 1;
         justify-content: center;
+        max-width: $maxwidth;
+        .card{
+            width: 50%;
+        }
 
         .message-container {
             border-radius: 4px;
@@ -20,6 +24,9 @@
         }
 
         .compare-card {
+            border-radius: 4px;
+
+                border: 1px solid $accent-light;
             display: flex;
             position: relative;
             flex-grow: 1;
@@ -41,6 +48,7 @@
             z-index: 1;
 
             h2 {
+                font-size: 1rem;
                 border-bottom: 1px solid rgb(32, 32, 32);
             }
 

@@ -14,6 +14,7 @@ header h1.title-header {
   font-size: 1.4rem;
 }
 header h2 {
+  margin-top: 0;
   transition: 1000ms;
 }
 
@@ -33,7 +34,12 @@ section.download-section {
   gap: 1rem;
   color: rgb(222, 218, 218);
 }
-section.download-section:first-child select {
+section.download-section div:nth-of-type(2) {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+section.download-section select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -51,11 +57,13 @@ section.download-section:first-child select {
   cursor: inherit;
   line-height: inherit;
 }
-section.download-section p {
+
+p {
   margin: 0px;
   padding: 2px;
 }
-section.download-section button {
+
+button {
   text-align: center;
   font-family: "Star Wars", "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   border: none;
@@ -66,10 +74,10 @@ section.download-section button {
   letter-spacing: 2px;
   border-bottom: 2px solid transparent;
 }
-section.download-section button:hover {
+button:hover {
   transition: ease-in-out 300ms;
   transform: scale(1.05);
-  border-bottom: 3px solid #FFE81F;
+  border-bottom: 3px solid rgb(222, 218, 218);
 }
 
 footer {
@@ -135,7 +143,7 @@ section.card-section {
 }
 section.card-section .picture-cards {
   gap: 1rem;
-  padding: 0;
+  padding: 0.4rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -146,6 +154,9 @@ section.card-section .picture-cards .card {
   justify-content: space-evenly;
   gap: 0.4rem;
 }
+section.card-section .picture-cards .card div:first-child {
+  width: 100%;
+}
 section.card-section .picture-cards .card div .picture {
   display: flex;
   justify-content: space-between;
@@ -153,8 +164,10 @@ section.card-section .picture-cards .card div .picture {
   width: 100%;
   aspect-ratio: 1/1;
   background-size: cover;
+  max-width: 300px;
 }
 section.card-section .picture-cards .card h3 {
+  text-align: center;
   color: rgb(222, 218, 218);
   margin: 0;
   padding: 0.4rem;
@@ -162,25 +175,29 @@ section.card-section .picture-cards .card h3 {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 73%, rgba(255, 255, 255, 0) 100%);
 }
 section.card-section .picture-cards .card .svg-buttons {
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
   justify-content: space-between;
   align-items: center;
-  background: rgba(70, 26, 26, 0.5);
+  background: rgba(62, 48, 48, 0.2);
 }
 section.card-section .picture-cards .card .svg-buttons div.loaded:hover {
   transform: scale(1.15);
 }
+section.card-section .picture-cards .card .svg-buttons div.loaded:hover .path2 {
+  fill: rgb(111, 111, 111);
+}
 section.card-section .picture-cards .card .svg-buttons svg {
-  width: 1.2rem;
+  width: 1.6rem;
   fill: inherit;
 }
 section.card-section .picture-cards .card .svg-buttons svg .both-icon-1 {
   fill: rgb(222, 218, 218);
 }
 section.card-section .picture-cards .card .svg-buttons svg .path2 {
-  fill: rgb(27, 26, 26);
+  fill: rgb(49, 48, 48);
 }
 
 h4 {
@@ -197,6 +214,9 @@ p {
   .container {
     padding: 0 !important;
   }
+  .message-attribute .card {
+    width: auto !important;
+  }
   .card-section .picture-cards {
     padding: 0;
   }
@@ -212,6 +232,10 @@ p {
   flex-direction: row;
   flex-grow: 1;
   justify-content: center;
+  max-width: 1300px;
+}
+.message-attribute .card {
+  width: 50%;
 }
 .message-attribute .message-container {
   border-radius: 4px;
@@ -224,6 +248,8 @@ p {
   transition: 300ms;
 }
 .message-attribute .compare-card {
+  border-radius: 4px;
+  border: 1px solid rgb(222, 218, 218);
   display: flex;
   position: relative;
   flex-grow: 1;
@@ -243,6 +269,7 @@ p {
   z-index: 1;
 }
 .message-attribute .show-comparison h2 {
+  font-size: 1rem;
   border-bottom: 1px solid rgb(32, 32, 32);
 }
 .message-attribute .show-comparison:hover h2 {
@@ -266,7 +293,7 @@ p {
 }
 
 * {
-  font-size: calc(16px + 10 * (100vw - 320px) / 960);
+  font-size: calc(16px + 6 * (100vw - 320px) / 960);
 }
 
 body {
@@ -283,7 +310,7 @@ body .container {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  max-width: 1200px;
+  max-width: 800px;
   margin: auto;
   transition: 300ms;
 }
