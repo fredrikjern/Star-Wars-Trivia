@@ -315,7 +315,7 @@ class Character {
     this.compare("Gender", this.gender, char2.gender);
   }
   generatePictureUrl() {
-    ///Star-Wars-Trivia
+    ///Star-Wars-Trivia ../ funkar ej??
     return `assets/${this.name.toLowerCase().replace(/ .*/, "")}.png`;
   }
   generateSVG(string) {
