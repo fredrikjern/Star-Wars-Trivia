@@ -15,26 +15,27 @@ document
       console.log("Stop clicking you shall");
     }
   });
-// ! God function, runs and controls everything, pulling the strings
+// ! God-function, runs and controls everything, pulling the strings
 async function downloadStage() {
   try {
-    // Hämtar data för båda karaktärerna samtidigt/paralellt
+    // Lägger värdena från Dropdowns i en array.
     let characterNames = [
       document.getElementById("character-1").value,
       document.getElementById("character-2").value,
     ];
-    let promises = characterNames.map((val) => getCharacterData(val));
+    // Hämtar data för båda karaktärerna samtidigt/paralellt
+    let promises = characterNames.map((val) => getCharacterData(val)); 
     let [c1, c2] = await Promise.allSettled(promises);
-    character1 = createCharacter(c1.value); //Sätter igång massa fler asyncs, getFilm, getPlanet, etc
-    character2 = createCharacter(c2.value); // Sätter igång karaktär 2s nedladdningar direkt utan att vänta
-    character1.printPictureCard(); // Tillverkar korten för bild och ikoner
+    character1 = createCharacter(c1.value); //Skapar instans och sätter igång massa fler asyncs, getFilm, getPlanet, etc
+    character2 = createCharacter(c2.value); // Skapar instans av class och sätter igång karaktär 2s nedladdningar direkt utan att vänta så allt sker simultant och datan fås snabbast
+    character1.printPictureCard(); // Tillverkar korten för bild, namn och ikoner
     character2.printPictureCard();
-    character1.addCardEventlisteners(); // Blev en liten tankevurpa här, denna eventlistenern borde ligga där bothEvent ligger. Den väntar fortfarande på char2.homeworld men klassen "loaded" läggs till för tidigt
+    character1.addCardEventlisteners(); // homeworld ligger för tidigt, får loaded classen innan båda .films resolvat och funktionen för att jämföra kan köras
     character2.addCardEventlisteners();
     character1.compareRender(character2); // Jämför och renderar ut attributen i en "tabell"
     await character1.films;
     await character2.films; // Väntar in filmerna från båda karaktärerna för att kunna jämföra, borde gjorts likadant för Planets
-    character1.bothEventlistener(character2);
+    character1.bothEventlistener(character2); // Såhär borde jag även gjort med homeworld-listenern, awaitat in båda karaktärernas planeter.
     character2.bothEventlistener(character1);
   } catch (error) {
     console.log(error);
@@ -46,8 +47,8 @@ async function downloadStage() {
 function downloadClickStyling() {
   let cardSection = document.querySelector(".card-section");
   cardSection.classList.remove("rotated");
-  let pcard = document.querySelector(".picture-cards");
-  pcard.innerHTML = "";
+  let pictureCard = document.querySelector(".picture-cards");
+  pictureCard.innerHTML = "";
   setTimeout(() => {
     document.querySelector("header h2").classList.add("scale");
     setTimeout(() => {
@@ -176,7 +177,7 @@ class Character {
     let msgContainer = document.querySelector(".message-container");
     msgContainer.innerHTML = `${string}`;
   }
-  printFirstMovie = async () => {
+  printFirstMovie = async () => { 
     let movieArray = await this.films;
     this.printToCardMsg(
       `<h4>${this.name} first appeared in ${
@@ -201,7 +202,7 @@ class Character {
     divChild2.classList.add("svg-buttons");
     divChild2.innerHTML = `
         <div class="homeworld-button
-              ${this.getShortName()} button">  
+              ${this.getShortName()}">  
           ${this.generateSVG("homeworld")}
         </div>
         <div class="vehicle-button
