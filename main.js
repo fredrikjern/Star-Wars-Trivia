@@ -160,7 +160,7 @@ class Character {
     let all = [...vehicles, ...starships];
     console.log(all);
     all.sort((a, b) => {
-      // pris = [2]
+      // pris = [2]  [model,name,price]
       const aPrice = a[2] === "unknown" ? 0 : parseInt(a[2]);
       const bPrice = b[2] === "unknown" ? 0 : parseInt(b[2]);
       return bPrice - aPrice;
@@ -178,7 +178,7 @@ class Character {
     let msgContainer = document.querySelector(".message-container");
     msgContainer.innerHTML = `${string}`;
   }
-  printFirstMovie = async () => { 
+  printFirstMovie = async () => {
     let movieArray = await this.films;
     this.printToCardMsg(
       `<h4>${this.name} first appeared in ${
@@ -203,18 +203,18 @@ class Character {
     divChild2.classList.add("svg-buttons");
     divChild2.innerHTML = `
         <div class="homeworld-button
-              ${this.getShortName()}">  
+              ${this.generateShortName()}">  
           ${this.generateSVG("homeworld")}
         </div>
         <div class="vehicle-button
-              ${this.getShortName()}">
+              ${this.generateShortName()}">
           ${this.generateSVG("vehicle")}
         </div>
         <div class="first-button
-              ${this.getShortName()}">
+              ${this.generateShortName()}">
           ${this.generateSVG("movie")}
         </div>
-        <div class="both-button ${this.getShortName()}">
+        <div class="both-button ${this.generateShortName()}">
           ${this.generateSVG("both")}
         </div>
       `;
@@ -237,6 +237,14 @@ class Character {
     });
     return titleDate;
   };
+  getPlanet = async (homeworld) => {
+    try {
+      let { name } = await this.get(homeworld);
+      return name;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   getMultiple = async (arr) => {
     try {
       let promises = arr.map((id) => this.get(id));
@@ -244,14 +252,6 @@ class Character {
       return data;
     } catch (error) {
       console.log("Error i getMultiple", error);
-    }
-  };
-  getPlanet = async (homeworld) => {
-    try {
-      let { name } = await this.get(homeworld);
-      return name;
-    } catch (error) {
-      console.log(error);
     }
   };
   get = async (url) => {
@@ -264,18 +264,16 @@ class Character {
       console.log("Fel i get");
     }
   };
-  getShortName() {
-    return this.name.toLowerCase().replace(/ .*/, "");
-  }
+
   // * -- Eventlisteners methods --
   addCardEventlisteners() {
-    this.homeworldEventistener(this.getShortName());
-    this.firstEventistener(this.getShortName());
-    this.vehicleEventistener(this.getShortName());
+    this.homeworldEventistener(); //Borde flyttas
+    this.firstEventistener(this.generateShortName());
+    this.vehicleEventistener(this.generateShortName());
   }
-  homeworldEventistener = async (short) => {
+  homeworldEventistener = async () => {
     await this.homeworld;
-    let homeworldBtn = document.querySelector(`.homeworld-button.${short}`);
+    let homeworldBtn = document.querySelector(`.homeworld-button.${this.generateShortName()}`);
     homeworldBtn.addEventListener("click", (event) => {
       event.preventDefault();
       this.compareHomePlanet(
@@ -304,13 +302,16 @@ class Character {
     vehicleBtn.classList.add("loaded");
   };
   bothEventlistener(character2) {
-    let bothBtn = document.querySelector(`.both-button.${this.getShortName()}`);
+    let bothBtn = document.querySelector(
+      `.both-button.${this.generateShortName()}`
+    );
     bothBtn.addEventListener("click", (event) => {
       event.preventDefault();
       this.compareFilms(character2);
     });
     bothBtn.classList.add("loaded");
   }
+
   // !----   Compare and render methods ----
   /**
    * this function compare attributes, adds ".winner" or ".equal" and then
@@ -468,5 +469,8 @@ class Character {
       </svg>
       `;
     }
+  }
+  generateShortName() {
+    return this.name.toLowerCase().replace(/ .*/, "");
   }
 }
