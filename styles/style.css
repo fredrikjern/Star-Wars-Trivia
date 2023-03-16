@@ -199,7 +199,7 @@ section.card-section .picture-cards .card .svg-buttons {
   background: rgba(62, 48, 48, 0.2);
 }
 section.card-section .picture-cards .card .svg-buttons div.loaded:hover {
-  transform: scale(1.15);
+  transform: scale(1.15) !important;
 }
 section.card-section .picture-cards .card .svg-buttons div.loaded:hover .path2 {
   fill: rgb(111, 111, 111);

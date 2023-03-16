@@ -66,7 +66,7 @@ section.card-section {
 
                 div.loaded {
                     &:hover {
-                        transform: scale(1.15);
+                        transform: scale(1.15) !important;
                         .path2 {
                                 fill: rgb(111, 111, 111);
                             }
