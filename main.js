@@ -158,6 +158,7 @@ class Character {
     let vehicles = await this.vehicles;
     let starships = await this.starships;
     let all = [...vehicles, ...starships];
+    console.log(all);
     all.sort((a, b) => {
       // pris = [2]
       const aPrice = a[2] === "unknown" ? 0 : parseInt(a[2]);
