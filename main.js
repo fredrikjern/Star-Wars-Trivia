@@ -1,37 +1,39 @@
+//Globals, necessary as the app is now but could be developed away.
 let character1;
 let character2;
-
+// Eventlistener för the download / COMPARE - button.
 let deleteClick = false;
-
-let downloadBtn = document.getElementById("download-button");
-downloadBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (!deleteClick) {
-    doubleClickPrevention()
-    downloadStage();
-    downloadClickStyling();
-  } else {
-    console.log("Stop clicking you shall");
-  }
-});
-// ! God function, runs and controls everything
+document
+  .getElementById("download-button")
+  .addEventListener("click", (event) => {
+    event.preventDefault();
+    if (!deleteClick) {
+      doubleClickPrevention();
+      downloadStage();
+      downloadClickStyling();
+    } else {
+      console.log("Stop clicking you shall");
+    }
+  });
+// ! God function, runs and controls everything, pulling the strings
 async function downloadStage() {
   try {
+    // Hämtar data för båda karaktärerna samtidigt/paralellt
     let characterNames = [
       document.getElementById("character-1").value,
       document.getElementById("character-2").value,
     ];
     let promises = characterNames.map((val) => getCharacterData(val));
     let [c1, c2] = await Promise.allSettled(promises);
-    character1 = createCharacter(c1.value);
-    character2 = createCharacter(c2.value);
-    character1.printPictureCard();
+    character1 = createCharacter(c1.value); //Sätter igång massa fler asyncs, getFilm, getPlanet, etc
+    character2 = createCharacter(c2.value); // Sätter igång karaktär 2s nedladdningar direkt utan att vänta
+    character1.printPictureCard(); // Tillverkar korten för bild och ikoner
     character2.printPictureCard();
-    character1.addCardEventlisteners();
+    character1.addCardEventlisteners(); // Blev en liten tankevurpa här, denna eventlistenern borde ligga där bothEvent ligger. Den väntar fortfarande på char2.homeworld men klassen "loaded" läggs till för tidigt
     character2.addCardEventlisteners();
-    character1.compareRender(character2);
+    character1.compareRender(character2); // Jämför och renderar ut attributen i en "tabell"
     await character1.films;
-    await character2.films;
+    await character2.films; // Väntar in filmerna från båda karaktärerna för att kunna jämföra, borde gjorts likadant för Planets
     character1.bothEventlistener(character2);
     character2.bothEventlistener(character1);
   } catch (error) {
@@ -119,7 +121,6 @@ let getData = async (url) => {
     console.log("Fel i getData");
   }
 };
-
 
 // *  --  Class -- //
 class Character {
@@ -309,6 +310,13 @@ class Character {
     bothBtn.classList.add("loaded");
   }
   // !----   Compare and render ----
+  /**
+   * this function compare attributes, adds ".winner" or ".equal" and then
+   * appends attr1,string,attr2 with styling to the DOM(".attribute")
+   * @param {* String with name} string
+   * @param {* String/number} attr1
+   * @param {* Sring/numbert} attr2
+   */
   compare(string, attr1, attr2) {
     let one = document.createElement("div");
     let title = document.createElement("div");
@@ -460,5 +468,3 @@ class Character {
     }
   }
 }
-
-
