@@ -315,8 +315,9 @@ class Character {
     this.compare("Gender", this.gender, char2.gender);
   }
   generatePictureUrl() {
-    ///Star-Wars-Trivia ../ funkar ej??
-    return `assets/${this.name.toLowerCase().replace(/ .*/, "")}.png`;
+    return `/Star-Wars-Trivia/assets/${this.name
+      .toLowerCase()
+      .replace(/ .*/, "")}.png`;
   }
   generateSVG(string) {
     if (string === "homeworld") {
