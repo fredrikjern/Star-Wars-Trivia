@@ -13,6 +13,14 @@
     transform: scale(1);
   }
 }
+@keyframes rotBack {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
 header {
   display: flex;
   align-items: center;
@@ -260,7 +268,6 @@ p {
   align-items: flex-start;
   padding: 1rem;
   content: "";
-  transition: 300ms;
 }
 .message-attribute .compare-card {
   border-radius: 4px;
@@ -340,7 +347,6 @@ body .container {
   flex-direction: column;
   max-width: 800px;
   margin: auto;
-  transition: 300ms;
 }
 
 @media only screen and (min-width: 1800px) {

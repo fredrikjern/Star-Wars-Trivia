@@ -32,7 +32,8 @@ async function downloadStage() {
     character2.printPictureCard();
     character1.addCardEventlisteners(); // homeworld ligger för tidigt, får loaded classen innan båda .films resolvat och funktionen för att jämföra kan köras
     character2.addCardEventlisteners();
-    character1.compareRender(character2); // Jämför och renderar ut attributen i en "tabell"
+    character1.compareRender(character2);
+    document.querySelector(".message-attribute").classList.remove("rotated"); // Jämför och renderar ut attributen i en "tabell"
     await character1.films;
     await character2.films; // Väntar in filmerna från båda karaktärerna för att kunna jämföra, borde gjorts likadant för Planets
     character1.bothEventlistener(character2); // Såhär borde jag även gjort med homeworld-listenern, awaitat in båda karaktärernas planeter.
@@ -56,6 +57,7 @@ function downloadClickStyling() {
     }, 200);
   }, 100);
   let messageAttribute = document.querySelector(".message-attribute");
+  messageAttribute.classList.add("rotated")
   messageAttribute.innerHTML = `  
                 <div class="message-container card"></div>
                 <div class="compare-card">
