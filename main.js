@@ -316,7 +316,7 @@ class Character {
   }
   generatePictureUrl() {
     ///Star-Wars-Trivia
-    return `../assets/${this.name.toLowerCase().replace(/ .*/, "")}.png`;
+    return `assets/${this.name.toLowerCase().replace(/ .*/, "")}.png`;
   }
   generateSVG(string) {
     if (string === "homeworld") {
